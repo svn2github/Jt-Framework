@@ -24,16 +24,16 @@ w\:* {behavior:url(#default#VML);}
  <o:DocumentProperties>
   <o:Author>Marina Sammy</o:Author>
   <o:LastAuthor>Marina Sammy</o:LastAuthor>
-  <o:Revision>68</o:Revision>
-  <o:TotalTime>258</o:TotalTime>
+  <o:Revision>73</o:Revision>
+  <o:TotalTime>265</o:TotalTime>
   <o:Created>2006-08-20T23:20:00Z</o:Created>
-  <o:LastSaved>2006-09-09T22:37:00Z</o:LastSaved>
+  <o:LastSaved>2006-10-04T21:14:00Z</o:LastSaved>
   <o:Pages>3</o:Pages>
-  <o:Words>947</o:Words>
-  <o:Characters>5401</o:Characters>
+  <o:Words>954</o:Words>
+  <o:Characters>5442</o:Characters>
   <o:Lines>45</o:Lines>
   <o:Paragraphs>10</o:Paragraphs>
-  <o:CharactersWithSpaces>6632</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>6683</o:CharactersWithSpaces>
   <o:Version>9.3821</o:Version>
  </o:DocumentProperties>
 </xml><![endif]-->
@@ -306,7 +306,7 @@ auto;margin-left:1.0in;text-indent:-.25in;mso-list:l4 level1 lfo2;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><![endif]><b><!-- Latest Release: e.g. 1.0 -->Latest Release:</b>
-Jt1.2<o:p></o:p></p>
+Jt1.3<o:p></o:p></p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l4 level1 lfo2;tab-stops:
@@ -320,16 +320,17 @@ auto;margin-left:1.0in;text-indent:-.25in;mso-list:l4 level1 lfo2;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><![endif]><b><!-- Project Type: Web Service, Tool, Component, or add your own -->Project
-Type:</b> framework<o:p></o:p></p>
+Type:</b> framework (open source technology)<o:p></o:p></p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:.5in'><!-- project info end -->Jt is a lightweight pattern
 oriented framework for the rapid implementation of J2EE applications. Jt has
 been utilized in several large mission critical systems. Jt implements many
-well-known patterns including Data Access Objects (DAO). It features messages,
-attributes, logging/debugging capabilities, resource loading, etc. This
-framework supports several J2EE technologies including Java Server Pages
-(JSPs), JDBC, Enterprise Java Beans (EJB), JavaMail, XML and Web Services.</p>
+well-known patterns including Data Access Objects (DAO), GoF design patterns
+and J2EE patterns. It features messages, attributes, logging/debugging
+capabilities, resource loading, etc. This framework supports several J2EE
+technologies including Java Server Pages (JSPs), JDBC, Enterprise Java Beans
+(EJB), JavaMail, XML and Web Services.</p>
 
 <h3><a name=contents>Contents</a></h3>
 
@@ -399,13 +400,11 @@ auto'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
 <span style='mso-bookmark:features'></span>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
-auto;margin-left:.5in'>Jt1.2 features support for J2EE Enterprise Java Beans
-(EJB) via Jt Adapters. EJB clients are able to gain transparent access to
-remote framework objects. This simplifies the development of EJB applications:
-no need to deal with the complexities of EJB application development
-(deployment descriptors, Home/Remote interfaces, etc). An implementation of the
-J2EE Service Locator pattern is also provided.<span style="mso-spacerun:
-yes">&nbsp; </span></p>
+auto;margin-left:.5in'>Jt1.3 features complete implementations of Command, Composite,
+Memento and Observer. The Command implementation (JtCommand) supports a request
+log, a queueing mechanism and undoable operations. Jt1.3 and the Command
+implementation also support multithreading: framework objects that inherit from
+JtThread or JtCommand are able to execute using an independent thread.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:.5in'>Additional features include: </p>
@@ -416,7 +415,7 @@ list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><![endif]>Jt is a pattern oriented framework. Jt implements many
 well-known design patterns. This includes Data Access Objects (DAO), adapters
-for several J2EE API, etc. </p>
+for several J2EE APIs, Gang of Four (GoF) design patterns and J2EE patterns.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
@@ -429,6 +428,14 @@ messages. The messaging paradigm provides additional encapsulation and software
 simplicity. The messaging API implemented by the Jt Framework is very simple:
 very few calls are required to create, manipulate and destroy messages and
 objects. On the other hand, this API is very powerful. </p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
+list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>J2EE implementation of Factory Method, Singleton,
+Composite, Decorator, Facade, Proxy, Command, Iterator, Memento, Observer and
+Strategy.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
@@ -447,8 +454,18 @@ list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><![endif]>JavaMail API support via the implementation of a JavaMail
-adapter</p>
+</span></span><![endif]>JavaMail API support via the implementation of a
+JavaMail adapter</p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
+list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Support for J2EE Enterprise Java Beans (EJB) via Jt
+Adapters. EJB clients are able to gain transparent access to remote framework
+objects. No need to deal with the complexities of EJB application development.
+An implementation of the J2EE Service Locator pattern is also provided.<span
+style="mso-spacerun: yes">&nbsp; </span></p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
@@ -476,8 +493,8 @@ list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><![endif]>Support for the XML API via XML helpers. framework
-objects can be converted to/from the XML format.</p>
+</span></span><![endif]>Support for the XML API via XML helpers. framework objects
+can be converted to/from the XML format.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
@@ -552,9 +569,8 @@ to build the Jt Framework.</p>
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l0 level1 lfo8;tab-stops:
 list .5in'><![if !supportLists]>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span><![endif]>Check out the <code><span style='font-size:10.0pt;font-family:
-"Courier New"'>Jt</span></code> source code from java.net. You can find
-instructions for doing so here: <a
-href="http://jt.dev.java.net/source/browse/jt/">http://jt.dev.java.net/source/browse/jt/</a>
+"Courier New"'>Jt</span></code> source code from java.net. You can find instructions
+for doing so here: <a href="http://jt.dev.java.net/source/browse/jt/">http://jt.dev.java.net/source/browse/jt/</a>
 </p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
@@ -577,7 +593,7 @@ list .5in'><![if !supportLists]>5.<span style='font:7.0pt "Times New Roman"'>&nb
 auto;margin-left:.5in'>To use Jt, first, <a href="#build">build the application</a>
 or <a href="#download">download</a> a precompiled binary, and make sure you can
 run it. Then, follow the instructions included in the Jt user&#8217;s manual and the
-Jt API documentation.<span style="mso-spacerun: yes">&nbsp; </span></p>
+Jt API documentation. <span style="mso-spacerun: yes">&nbsp;</span></p>
 
 <h3><a name=support>Support</a></h3>
 
