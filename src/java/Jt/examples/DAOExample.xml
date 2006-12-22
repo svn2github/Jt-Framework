@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JtCollection>
+  <JtMessage>
+    <msgId>JtMAP_ATTRIBUTE</msgId>
+    <msgContent>email</msgContent>
+    <msgData>email</msgData>
+  </JtMessage>
+
+  <JtMessage>
+    <msgId>JtMAP_ATTRIBUTE</msgId>
+    <msgContent>name</msgContent>
+    <msgData>name</msgData>
+  </JtMessage>
+
+  <JtMessage>
+    <msgId>JtMAP_ATTRIBUTE</msgId>
+    <msgContent>tstamp</msgContent>
+    <msgData>tstamp</msgData>
+  </JtMessage>
+
+  <JtMessage>
+    <msgId>JtMAP_ATTRIBUTE</msgId>
+    <msgContent>status</msgContent>
+    <msgData>status</msgData>
+  </JtMessage>
+
+  <JtMessage>
+    <msgId>JtMAP_ATTRIBUTE</msgId>
+    <msgContent>booleanv</msgContent>
+    <msgData>booleanv</msgData>
+  </JtMessage>
+</JtCollection>
