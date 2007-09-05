@@ -23,17 +23,18 @@ w\:* {behavior:url(#default#VML);}
 <!--[if gte mso 9]><xml>
  <o:DocumentProperties>
   <o:Author>Marina Sammy</o:Author>
-  <o:LastAuthor>Marina Sammy</o:LastAuthor>
-  <o:Revision>85</o:Revision>
-  <o:TotalTime>297</o:TotalTime>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Freedom</o:LastAuthor>
+  <o:Revision>91</o:Revision>
+  <o:TotalTime>366</o:TotalTime>
   <o:Created>2006-08-20T23:20:00Z</o:Created>
-  <o:LastSaved>2006-12-18T02:10:00Z</o:LastSaved>
+  <o:LastSaved>2007-09-03T21:05:00Z</o:LastSaved>
   <o:Pages>3</o:Pages>
-  <o:Words>1004</o:Words>
-  <o:Characters>5725</o:Characters>
-  <o:Lines>47</o:Lines>
-  <o:Paragraphs>11</o:Paragraphs>
-  <o:CharactersWithSpaces>7030</o:CharactersWithSpaces>
+  <o:Words>1053</o:Words>
+  <o:Characters>6007</o:Characters>
+  <o:Lines>50</o:Lines>
+  <o:Paragraphs>12</o:Paragraphs>
+  <o:CharactersWithSpaces>7377</o:CharactersWithSpaces>
   <o:Version>9.3821</o:Version>
  </o:DocumentProperties>
 </xml><![endif]-->
@@ -198,7 +199,7 @@ ul
   src="images\icon.gif"></p>
   </td>
   <td valign=top style='padding:.75pt .75pt .75pt .75pt'>
-  <h1>Jt - J2EE Pattern Framework<o:p></o:p></h1>
+  <h1>Jt - J2EE Pattern Oriented Framework<o:p></o:p></h1>
 <!-- Navbar begin -->
   <table border=0 cellspacing=0 cellpadding=0 style='mso-cellspacing:0in;
    mso-padding-alt:0in 0in 0in 0in' summary="Navigation bar">
@@ -306,7 +307,7 @@ auto;margin-left:1.0in;text-indent:-.25in;mso-list:l4 level1 lfo2;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><![endif]><b><!-- Latest Release: e.g. 1.0 -->Latest Release:</b>
-Jt1.5<o:p></o:p></p>
+Jt1.6<o:p></o:p></p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l4 level1 lfo2;tab-stops:
@@ -328,9 +329,12 @@ oriented framework for the rapid implementation of J2EE applications. Jt has
 been utilized in several large mission critical systems. Jt implements many
 well-known patterns including Data Access Objects (DAO), GoF design patterns
 and J2EE patterns. It features messages, attributes, logging/debugging
-capabilities, resource loading, etc. This framework supports several J2EE
-technologies including Java Server Pages (JSPs), JDBC, Enterprise Java Beans
-(EJB), JMS, JavaMail, XML and Web Services.</p>
+capabilities, resource loading, etc. This framework supports several BPM and J2EE
+technologies including jBPM, Java Server Pages (JSPs), JDBC, Enterprise Java
+Beans (EJB), JMS, JavaMail, XML and Web Services.</p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:.5in'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
 
 <h3><a name=contents>Contents</a></h3>
 
@@ -403,11 +407,14 @@ auto'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
 auto;margin-left:.5in'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
-auto;margin-left:.5in'>Jt1.5 features support for the asynchronous Java Message
-Service (JMS). Two Jt adapters are provided: one adapter for point-to-point
-messaging and another for topic/subscriber messaging. By using these adapters,
-Jt messages can be sent and received via JMS. Few simple lines of code are
-needed to add JMS functionality to Jt based applications.</p>
+auto;margin-left:.5in'>Jt1.6 features support for business process modeling
+(BPM). A jBPM adapter is provided within the Jt framework. jBPM is an open
+source implementation of<span style="mso-spacerun: yes">&nbsp; </span>the BPM
+technology. A Jt application can now<span style="mso-spacerun: yes">&nbsp;
+</span>be modeled using a process graph. This minimizes the need for coding and
+increases productivity and quality. It also provides users with a very powerful
+way of modeling business processes.<span style="mso-spacerun: yes">&nbsp;
+</span></p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:.5in'>Additional features include: </p>
@@ -504,6 +511,13 @@ list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><![endif]>Support for the XML API via XML helpers. Framework
 objects can be converted to/from the XML format.</p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
+list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Support for the asynchronous Java Message Service
+(JMS). Jt messages can be sent and received via JMS adapters.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
