@@ -1,8 +1,7 @@
 package Jt.examples.jms;
 
 import Jt.*;
-import Jt.jms.*;
-import java.io.*;
+
 
 
 // Demonstrates the use of JtJMSQueueAdapter (asynchronous mode).
@@ -17,9 +16,9 @@ public class JMSAsyncReceiver {
   public static void main(String[] args) {
 
     JtFactory main = new JtFactory ();  // Jt Factory
-    JtMessage msg;
-    String greeting;
-    String reply;
+    //JtMessage msg;
+    //String greeting;
+    //String reply;
     Jt.jms.JtJMSQueueAdapter jmsAdapter;
     JtEcho echo = new JtEcho ();
     JtKeyboard keyboard = new JtKeyboard ();

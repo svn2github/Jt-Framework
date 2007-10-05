@@ -1,0 +1,26 @@
+
+JT Reusable Framework
+=====================
+
+Thanks for downloading this release of the Jt Reusable framework.
+This distribution contains the following main files and directories:
+
+
+License        Software license
+Installation   Installation instructions
+docs/Jt.doc    Framework User's manual
+docs/api       Jt API documentation
+docs/ejbapi    JT EJB documentation
+EJB/jtejb.jar  JT EJB classses and deployment descriptors
+src/Jt         Jt sources
+build.xml      Ant build file      
+webapps        Web applications (examples, JSP support)
+src/Jt/examples Sample applications
+processes      BPM sample applications
+
+
+
+Please send email to support@fsw.com if you have
+comments or questions about this framework. We appreciate
+your feedback. Make sure that you review all the pertinent
+documentation before sending installation/usage questions.

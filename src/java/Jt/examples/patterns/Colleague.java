@@ -2,10 +2,6 @@
 
 package Jt.examples.patterns;
 
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 
 /**
@@ -14,6 +10,8 @@ import Jt.*;
 
 public class Colleague extends JtThread {
 
+
+private static final long serialVersionUID = 1L;
 Object mediator;
 String greetingMessage = "Hi there ";
 
@@ -86,8 +84,8 @@ String greetingMessage = "Hi there ";
 
    String msgid = null;
    JtMessage e = (JtMessage) message;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
    JtMessage tmp;
 
 
@@ -100,8 +98,8 @@ String greetingMessage = "Hi there ";
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
-     data = e.getMsgData ();
+     //content = e.getMsgContent();
+     //data = e.getMsgData ();
 
      // Remove this object
      if (msgid.equals ("JtREMOVE")) {

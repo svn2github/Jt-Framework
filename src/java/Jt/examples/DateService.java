@@ -4,15 +4,16 @@
 
 package Jt.examples;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 
 
 public class DateService extends JtObject {
 
   
+
+
+  private static final long serialVersionUID = 1L;
+
 
   public DateService() {
   }
@@ -27,7 +28,7 @@ public class DateService extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
    String dt;
 
      if (e == null)
@@ -38,8 +39,13 @@ public class DateService extends JtObject {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
 
+     if (msgid.equals ("JtREMOVE")) {
+              
+         return (this);
+     }
+     
      // Message1
 
      if (msgid.equals ("JtGET_DATE")) {
@@ -68,7 +74,7 @@ public class DateService extends JtObject {
 
     JtObject main = new JtObject ();
     JtMessage msg1, msg2;
-    Integer count;
+    //Integer count;
 
     //main.setObjTrace (1);
     //main.setLogFile ("log.txt");

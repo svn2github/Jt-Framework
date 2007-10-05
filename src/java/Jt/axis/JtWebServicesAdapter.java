@@ -1,8 +1,5 @@
 package Jt.axis;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 import Jt.*;
 import Jt.xml.*;
 
@@ -14,6 +11,8 @@ import Jt.xml.*;
 
 public class JtWebServicesAdapter extends JtScriptInterpreter  {
 
+
+  private static final long serialVersionUID = 1L;
   JtXMLConverter xmlConverter = null;  
   JtAxisAdapter axisAdapter = null;
   private String url = null;
@@ -92,7 +91,7 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
     Object output;
 
     if (class_name == null || id == null) { // check
-      handleError ("JtWebServiceAdapter.createObject: invalid parameters");
+      handleError ("JtWebServicesAdapter.createObject: invalid parameters");
       return (null);
     }
     
@@ -136,19 +135,19 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
 
   }
 
-  public void removeObject (Object id) {
+  public void destroyObject (Object id) {
     String xmlMsg;
     Object output;
 
     if (id == null) { // check
-      handleError ("JtWebServiceAdapter.createObject: invalid parameters");
+      handleError ("JtWebServicesAdapter.createObject: invalid parameters");
       return;
     }
     
     if (xmlConverter == null)
       xmlConverter = new JtXMLConverter ();
 
-    xmlConverter.removeObject (id);
+    xmlConverter.destroyObject (id);
     //xmlMsg = (String) super.sendMessage (xmlConverter, new JtMessage ("JtCONVERT"));    
     xmlMsg = (String) xmlConverter.processMessage (new JtMessage ("JtCONVERT"));    
 
@@ -169,7 +168,7 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
      return (null); // check
 
 
-    //handleTrace ("JtWebServiceAdapter.doit() ...."
+    //handleTrace ("JtWebServicesAdapter.doit() ...."
     //             + xmlMsg);
 
     msg = new JtMessage ("JtSCRIPT");
@@ -177,7 +176,7 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
 
 
     if (url == null) {
-      handleError ("JtWebServiceAdapter.sendMessage: invalid url (null)");
+      handleError ("JtWebServicesAdapter.sendMessage: invalid url (null)");
       return (null);     
     }
 
@@ -202,12 +201,12 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
   public Object sendMessage (Object id, Object msgid) {
 
     String xmlMsg;
-    JtMessage msg;
+    //JtMessage msg;
     Object output;
-    Exception ex;
+    //Exception ex;
 
     if (id == null || msgid == null) {
-      handleError ("JtWebServiceAdapter.sendMessage: invalid parameters");
+      handleError ("JtWebServicesAdapter.sendMessage: invalid parameters");
       return (null);
     }
 
@@ -238,9 +237,12 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
     Object value) {
     String xmlMsg;
 
-
+    if (id == this) {
+       super.setValue (id, att, value);
+       return;
+    }
     if (id == null || att == null) { // check null value
-      handleError ("JtWebServiceAdapter.sendMessage: invalid parameters");
+      handleError ("JtWebServicesAdapter.sendMessage: invalid parameters");
       return;
     }
 
@@ -267,7 +269,7 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
 
      if (e == null)
 	return null;
@@ -277,7 +279,7 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
 
      handleError ("processMessage: invalid message ID:" + msgid);
      return (null);
@@ -289,7 +291,7 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
 
 
  /**
-   * Unit tests all the messages processed by JtWebServiceAdapter. 
+   * Unit tests all the messages processed by JtWebServicesAdapter. 
    */
 
   public static void main(String[] args) {
@@ -297,7 +299,7 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
     JtObject main = new JtObject ();
 
     JtWebServicesAdapter myService;
-    String str;
+    //String str;
     String reply = null;
     Exception ex;
 
@@ -310,22 +312,18 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
     myService = (JtWebServicesAdapter) main.createObject ("Jt.axis.JtWebServicesAdapter", 
      "service");
 
-    // Set the service url property (if needed)
+    // Set the service url property
 
-    if (main.getValue (myService, "url") == null)
-      main.setValue (myService, "url", 
-        "http://localhost:8080/axis/services/JtAxisService");
-
-    // Set the service remoteLogFile property (if needed)
-
-    if (main.getValue (myService, "remoteLogFile") == null)
-      main.setValue (myService, "remoteLogFile", 
-       "c:\\log.txt");
+    main.setValue (myService, "url", 
+     "http://localhost:8080/axis/services/JtAxisService");
+    main.setValue (myService, "remoteLogFile", 
+     "c:\\log.txt");
 
 
-    // Create a remote instance of the HelloWorld class. The Jt Web service adapter
+
+    // Create a remote instance of the HelloWorld class. The Jt Web service adaptor
     // can be used to create remote instances of any Jt Framework class.
-    // HelloWorld is used as an example. 
+    // HelloWorld is used an example. 
 
     myService.createObject ("Jt.examples.HelloWorld", "helloWorld");
     //myService.createObject ("Jt.JtCommand", "command");
@@ -354,9 +352,9 @@ public class JtWebServicesAdapter extends JtScriptInterpreter  {
     if (ex == null)    
       System.out.println (reply);
 
-    // Remove the service instance
+    // Destroy the service instance
 
-    myService.removeObject ("helloWorld");
+    myService.destroyObject ("helloWorld");
 
 
   }

@@ -1,16 +1,17 @@
 package Jt.examples.patterns;
 
 import Jt.*;
-import java.io.*;
-import java.util.*;
-import Jt.xml.*;
-import java.beans.*;
+
 
 /**
  * Calculator implementation based on Strategy. Refer to Calculator3.java
  */
 
 public class Multiplication extends JtStrategy {
+
+
+
+  private static final long serialVersionUID = 1L;
 
 
   public Multiplication () {
@@ -25,7 +26,7 @@ public class Multiplication extends JtStrategy {
 
    String msgid = null;
    JtMessage msg = (JtMessage) message;
-   Object content;
+   //Object content;
 
      if (msg == null)
 	return null;
@@ -35,9 +36,9 @@ public class Multiplication extends JtStrategy {
      msgid = (String) msg.getMsgId ();
 
      if (msgid == null)
-	return null;
+	   return null;
 
-     content = msg.getMsgContent();
+     //content = msg.getMsgContent();
 
      // Let the superclass (JtStrategy) handle this message.
      // Strategy will forward the message to its concrete strategy.

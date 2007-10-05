@@ -1,8 +1,5 @@
 package Jt.examples.patterns;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 import Jt.*;
 
 
@@ -14,7 +11,11 @@ import Jt.*;
 public class Visitable extends JtObject {
 
 
-  public Visitable() {
+
+private static final long serialVersionUID = 1L;
+
+
+public Visitable() {
   }
 
 
@@ -31,7 +32,7 @@ public class Visitable extends JtObject {
    String msgid = null;
    JtMessage e = (JtMessage) event;
    Object content;
-   Object data;
+   //Object data;
    JtMessage aux;
 
      if (e == null)

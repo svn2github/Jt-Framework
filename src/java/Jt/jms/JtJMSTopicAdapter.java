@@ -3,10 +3,8 @@
 package Jt.jms;
 
 import Jt.*;
-import java.io.*;
 import Jt.jndi.*;
 import javax.jms.*;
-import javax.naming.*;
 
 /**
  * Jt Adapter for the JMS publish/subscribe API. 
@@ -14,6 +12,8 @@ import javax.naming.*;
 
 public class JtJMSTopicAdapter extends JtAdapter implements MessageListener {
 
+
+  private static final long serialVersionUID = 1L;
   private String topic;
   private String connectionFactory;
   private long timeout = 1L; // Receives the next message within the timeout interval
@@ -118,8 +118,8 @@ public class JtJMSTopicAdapter extends JtAdapter implements MessageListener {
     */
 
   public Object processMessage (Object message) {
-  String content;
-  String query;
+  //String content;
+  //String query;
   JtMessage e = (JtMessage) message;
   Object reply;
   JtMessage msg;
@@ -323,7 +323,7 @@ public class JtJMSTopicAdapter extends JtAdapter implements MessageListener {
   private Object testSubscriber () {
     String reply = "PASS";
     //TextMessage message;
-    ObjectMessage message;
+    //ObjectMessage message;
     JtMessage msg;
 
  
@@ -434,9 +434,9 @@ public class JtJMSTopicAdapter extends JtAdapter implements MessageListener {
 
 
   private Object testPublisher () {
-    String reply = "PASS";
-    TextMessage message;
-    ObjectMessage omsg;
+    //String reply = "PASS";
+    //TextMessage message;
+    //ObjectMessage omsg;
     JtMessage msg = new JtMessage ("JtHELLO");
     JtMessage wrapper = new JtMessage ("JtPUBLISH");
 

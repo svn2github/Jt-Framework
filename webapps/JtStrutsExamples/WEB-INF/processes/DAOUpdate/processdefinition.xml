@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition 
+  xmlns="urn:jbpm.org:jpdl-3.1"
+  name="DAOUpdate">
+   <start-state name="start">
+     <task>
+        <controller>
+          <variable name="color" />
+          <variable name="size" />
+        </controller>
+      </task>
+      <transition name="JtACTIVATE (Read email)" to="keyboard">
+         <action name="action" class="Jt.jbpm.JtMessageWrapper" config-type="bean">
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <msgId>JtACTIVATE</msgId>
+         </action>
+      </transition>
+   </start-state>
+   <state name="keyboard">
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender" config-type="bean">
+            <jbpmDestination>Keyboard</jbpmDestination>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <jbpmReply>userEmail</jbpmReply>
+         </action>
+      </event>
+      <event type="node-enter">
+         <action name="Keyboard" class="Jt.JtKeyboard" config-type="bean">
+            <prompt>Enter email address:</prompt>
+         </action>
+      </event>
+      <transition name="JtFIND" to="DAOMember"></transition>
+   </state>
+   <end-state name="end"></end-state>
+   <state name="DAOMember">
+      <event type="node-enter">
+         <action name="DAOMember" class="Jt.examples.DAOMember" config-type="bean">
+            <email_flag>1</email_flag>
+            <status>2007</status>
+            <subject>Resume</subject>
+         </action>
+         <action name="action2" class="Jt.jbpm.JtValueSetterFromVariable" config-type="bean">
+            <jbpmAttribute>email</jbpmAttribute>
+            <jbpmObject>DAOMember</jbpmObject>
+            <jbpmVariable>userEmail</jbpmVariable>
+         </action>
+         <action name="action3" class="Jt.jbpm.JtValueSetter" config-type="bean">
+            <jbpmAttribute>key</jbpmAttribute>
+            <jbpmObject>DAOMember</jbpmObject>
+            <jbpmValue>email</jbpmValue>
+         </action>
+         <action name="action4" class="Jt.jbpm.JtValueSetter" config-type="bean">
+            <jbpmAttribute>table</jbpmAttribute>
+            <jbpmObject>DAOMember</jbpmObject>
+            <jbpmValue>member</jbpmValue>
+         </action>
+         <action name="action1" class="Jt.jbpm.JtMessageWrapper" config-type="bean">
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <msgId>JtFIND</msgId>
+         </action>
+      </event>
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender">
+            <jbpmDestination>DAOMember</jbpmDestination>
+            <jbpmException>jbpmException</jbpmException>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <jbpmReply>jbpmReply</jbpmReply>
+         </action>
+      </event>
+      <transition name="" to="Record found ?"></transition>
+   </state>
+   <state name="Print Error Message">
+ 
+      <event type="node-leave">
+
+         <action name="action1" class="Jt.jbpm.JtPrint" config-type="bean">
+            <jbpmVariable>userEmail</jbpmVariable>
+            <message>Record not found:</message>
+         </action>
+      </event>
+      <transition name="" to="end"></transition>
+   </state>
+   <state name="Record found ?">
+      <event type="node-enter">
+         <action name="action1" class="Jt.jbpm.JtVariableIsNotNull" config-type="bean">
+            <falseTransition>no</falseTransition>
+            <jbpmVariable>jbpmReply</jbpmVariable>
+            <trueTransition>JtUPDATE</trueTransition>
+         </action>
+      </event>
+      <transition name="no" to="Print Error Message"></transition>
+      <transition name="JtUPDATE" to="DAOMember (1)">
+      </transition>
+   </state>
+   <state name="DAOMember (1)">
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender" config-type="bean">
+            <jbpmDestination>DAOMember</jbpmDestination>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+         </action>
+         <action name="action2" class="Jt.jbpm.JtMessageSender" config-type="bean">
+            <jbpmDestination>DAOMember</jbpmDestination>
+            <jbpmMessage>JtUPDATE</jbpmMessage>
+         </action>
+      </event>
+      <event type="node-enter">
+         <action name="action1" class="Jt.jbpm.JtMessageWrapper" config-type="bean">
+            <jbpmMessage>JtUPDATE</jbpmMessage>
+            <msgId>JtUPDATE</msgId>
+         </action>
+         <action name="action2" class="Jt.jbpm.JtMessageWrapper" config-type="bean">
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <msgId>UPDATE_RECORD</msgId>
+         </action>
+      </event>
+      <transition name="" to="end"></transition>
+   </state>
+
+</process-definition>

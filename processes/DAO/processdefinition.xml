@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition
+  xmlns=""  name="test">
+   <start-state name="start">
+      <transition name="" to="Enter Selection (Keyboard)"></transition>
+   </start-state>
+   <end-state name="end"></end-state>
+   <state name="Find Record (p)">
+      <event type="node-enter">
+         <action name="jbpmAdapter" class="Jt.jbpm.JtJBPMAdapter" config-type="bean">
+            <processDefinition>processes/DAOFind/processdefinition.xml</processDefinition>
+         </action>
+         <action name="action1" class="Jt.jbpm.JtMessageWrapper" config-type="bean">
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <msgId>JtACTIVATE</msgId>
+         </action>
+      </event>
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender" config-type="bean">
+            <jbpmDestination>jbpmAdapter</jbpmDestination>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+         </action>
+      </event>
+      <transition name="" to="Enter Selection (Keyboard)"></transition>
+   </state>
+   <state name="Enter Selection (Keyboard)">
+      <event type="node-enter">
+         <action name="keyboard" class="Jt.JtKeyboard" config-type="bean">
+            <prompt> (1) Find (2) Add (3) Modify (4) Delete (5) Exit :</prompt>
+         </action>
+         <action name="action1" class="Jt.jbpm.JtMessageWrapper" config-type="bean">
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <msgId>JtACTIVATE</msgId>
+         </action>
+      </event>
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender" config-type="bean">
+            <jbpmDestination>keyboard</jbpmDestination>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+            <jbpmReply>option</jbpmReply>
+         </action>
+      </event>
+      <transition name="" to="Valid selection ?"></transition>
+   </state>
+   <state name="Selection ? (Switch)">
+      <event type="node-enter">
+         <action name="action1" class="Jt.jbpm.JtSwitch">
+            <jbpmVariable>option</jbpmVariable>
+         </action>
+      </event>
+      <transition name="1" to="Find Record (p)"></transition>
+      <transition name="4" to="Delete Record (p)"></transition>
+      <transition name="2" to="Add Record (p)"></transition>
+      <transition name="3" to="Update Record (p)"></transition>
+      <transition name="5" to="end"></transition>
+   </state>
+   <state name="Add Record (p)">
+      <event type="node-enter">
+         <action name="jbpmAdapter" class="Jt.jbpm.JtJBPMAdapter" config-type="bean">
+            <processDefinition>processes/DAOInsert/processdefinition.xml</processDefinition>
+         </action>
+      </event>
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender">
+            <jbpmDestination>jbpmAdapter</jbpmDestination>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+         </action>
+      </event>
+      <transition name="" to="Enter Selection (Keyboard)"></transition>
+   </state>
+   <state name="Delete Record (p)">
+      <event type="node-enter">
+         <action name="jbpmAdapter" class="Jt.jbpm.JtJBPMAdapter" config-type="bean">
+            <processDefinition>processes/DAODelete/processdefinition.xml</processDefinition>
+         </action>
+      </event>
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender" config-type="bean">
+            <jbpmDestination>jbpmAdapter</jbpmDestination>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+         </action>
+      </event>
+      <transition name="" to="Enter Selection (Keyboard)"></transition>
+   </state>
+   <state name="Update Record (p)">
+      <event type="node-enter">
+         <action name="jbpmAdapter" class="Jt.jbpm.JtJBPMAdapter" config-type="bean">
+            <processDefinition>processes/DAOUpdate/processdefinition.xml</processDefinition>
+         </action>
+      </event>
+      <event type="node-leave">
+         <action name="action1" class="Jt.jbpm.JtMessageSender" config-type="bean">
+            <jbpmDestination>jbpmAdapter</jbpmDestination>
+            <jbpmMessage>jbpmMessage</jbpmMessage>
+         </action>
+      </event>
+      <transition name="" to="Enter Selection (Keyboard)"></transition>
+   </state>
+   <state name="Valid selection ?">
+      <event type="node-enter">
+         <action name="action1" class="Jt.jbpm.JtConditional" config-type="bean">
+            <delegateClass>Jt.examples.jbpm.Validate</delegateClass>
+            <falseTransition>no</falseTransition>
+            <jbpmVariable>option</jbpmVariable>
+            <trueTransition>yes</trueTransition>
+         </action>
+      </event>
+      <transition name="yes" to="Selection ? (Switch)"></transition>
+      <transition name="no" to="Print Error Message"></transition>
+   </state>
+   <state name="Print Error Message">
+      <event type="node-enter">
+         <action name="action1" class="Jt.jbpm.JtPrint" config-type="bean">
+            <message>The selection is invalid</message>
+         </action>
+      </event>
+      <transition name="" to="Enter Selection (Keyboard)"></transition>
+   </state>
+</process-definition>

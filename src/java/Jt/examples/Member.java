@@ -7,6 +7,8 @@ import java.util.*;
 import java.text.*;
 
 public class Member extends JtObject   {
+
+private static final long serialVersionUID = 1L;
 private String email;
 private String firstname;
 private String lastname;
@@ -88,7 +90,7 @@ private Date tstamp;
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
    JtValueObject valueObj;
    JtMessage msg;
 
@@ -100,10 +102,7 @@ private Date tstamp;
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
-
-
-
+     //content = e.getMsgContent();
 
      if (msgid.equals ("JtREMOVE")) {
              
@@ -111,6 +110,12 @@ private Date tstamp;
 
      }
 
+     if (msgid.equals ("JtPRINT_OBJECT")) {
+         
+         return (super.processMessage(event));
+
+     }
+     
      if (msgid.equals ("JtVALUE_OBJECT")) { 
         valueObj = new JtValueObject ();
         setValue (valueObj, "subject", this);
@@ -132,16 +137,16 @@ private Date tstamp;
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg, msg1;
-    Integer count;
+    //JtMessage msg, msg1;
+    //Integer count;
     Date date = new Date ();
     DateFormat df = DateFormat.getDateInstance();
 
 
     main.setObjTrace (1);
-    main.createObject ("Member", "member");
-    msg = (JtMessage) main.createObject ("Jt.JtMessage", "message");
-    main.setValue ("message", "msgId", "JtPRINT");
+    main.createObject ("Jt.examples.Member", "member");
+    main.createObject ("Jt.JtMessage", "message");
+    main.setValue ("message", "msgId", "JtPRINT_OBJECT");
     //main.setValue ("member", "tstamp", "December 12, 2004");
     main.setValue ("member", "tstamp", df.format (date));
 

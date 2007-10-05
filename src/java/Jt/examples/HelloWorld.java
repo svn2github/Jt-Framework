@@ -1,10 +1,12 @@
 package Jt.examples;
 
 import Jt.*;
-import java.io.*;
 
 
 public class HelloWorld extends JtObject {
+
+
+  private static final long serialVersionUID = 1L;
 
   private String greetingMessage;
 
@@ -14,8 +16,8 @@ public class HelloWorld extends JtObject {
   // Attributes
 
 
-  public void setGreetingMessage (String message) {
-     this.greetingMessage = message; // void operation
+  public void setGreetingMessage (String greetingMessage) {
+     this.greetingMessage = greetingMessage; 
 
   }
 
@@ -30,29 +32,31 @@ public class HelloWorld extends JtObject {
 
    String msgid = null;
    JtMessage msg = (JtMessage) message;
-   Object content;
+
 
      if (msg == null)
-	return null;
+	  return null;
 
      msgid = (String) msg.getMsgId ();
 
      if (msgid == null)
-	return null;
+	  return null;
 
-     content = msg.getMsgContent();
 
      // Process JtHello Message
 
      if (msgid.equals ("JtHello")) {
 
+        if (greetingMessage == null)
+            greetingMessage = "Hello World ...";
+        
         handleTrace ("HelloWorld returning a greeting message: " +  greetingMessage);
              
         return (greetingMessage);
      }
 
      if (msgid.equals ("JtREMOVE")) {             
-        return (null);
+        return (this);
      }
          
      handleError ("HelloWorld.processMessage: invalid message id:" + msgid);
@@ -67,7 +71,7 @@ public class HelloWorld extends JtObject {
 
     JtFactory main = new JtFactory ();  // Jt Factory
     JtMessage msg;
-    String greeting;
+    //String greeting;
     String reply;
 
 
@@ -80,11 +84,12 @@ public class HelloWorld extends JtObject {
     // If the greetingMessage hasn't be set (loaded from .Jtrc)
     // use the default value
 
+    /*
     greeting = (String) main.getValue ("helloWorld", "greetingMessage");
 
     if (greeting == null || greeting.equals (""))
       main.setValue ("helloWorld", "greetingMessage", "Hello World ...");
-
+    */
 
     // Create a Message ("JtHello")
 

@@ -1,0 +1,206 @@
+
+Jt Reusable Framework
+=====================
+
+Introduction
+------------
+
+The JT framework can be used in many situations: 
+
+I.-   client application (basic installation)
+II.-  Web application
+III.- Web services application
+IV.-  EJB client application
+V. -  jBPM application
+
+
+The following sections describe each one of these scenarios.
+
+
+
+I. Installation Notes (basic installation)
+---------------------------------------
+
+- Unpack the distribution into a local directory. lib/Jt.jar contains the Jt 
+framework classes. 
+
+- Add Jt.jar to the CLASSPATH. Jt version 1.6 and later versions provide built-in 
+support for jBPM (Business Process Modeling). You will need to add
+two jar files to the CLASSPATH: jbpm-3.1.2.jar and jbpm-identity-3.1.2.jar.
+These jar files can be found under the lib directory. 
+
+
+
+To verify the basic installation, type the following command:
+
+java Jt.examples.HelloWorld
+
+A hello message should be displayed.
+
+
+Installation Notes (optional installation)
+---------------------------------------
+
+
+The other JAR files under lib contain packages from other projects that are 
+needed by the Jt framework.
+
+- dom4j (this package is used by jbpm):
+
+lib/dom4j-1.6.1.jar
+
+- commons-logging.jar (this package is used by jbpm):
+lib/commons-logging.jar
+
+
+- JavaMail (this package is used by the Jt JavaMail Adapter):
+lib/mail.jar
+lib/activation.jar
+ 
+- Apache Xerces (this package is used by the Jt DAO, XML and Web Services packages):
+lib/resolver.jar
+lib/xercesImpl.jar
+lib/xml-apis.jar
+
+
+You may need to add these JAR files to the CLASSPATH. They may already
+be in your CLASSPATH.
+
+
+II.- Installation notes (Web Application)
+------------------------------------
+
+The framework JAR file (Jt.jar) needs to be made available
+to the application. This is usually done by copying Jt.jar to WEB-INF/lib.
+jbpm-3.1.2.jar and jbpm-identity-3.1.2.jar also need to be copied.
+
+The other JAR files under lib may need to be copied to WEB-INF/lib as well.
+
+An example of a web application can be found under webapps/JtWebExamples.
+To try this example, simply copy this directory to your container, restart the
+container if needed and direct your browser to the appropriate URL. The URL 
+should look like the following:
+
+http://localhost:8080/JtWebExamples/HelloWorld.jsp
+
+
+A hello message should be displayed. 
+
+
+III.- Installation notes (Web Services Application - Apache Axis)
+-----------------------------------------------------------------
+You must download and install Apache Axis as a prerequisite.
+
+The framework JAR file (Jt.jar) needs to be made available
+to the Axis application. This can be done by copying Jt.jar into 
+webapps/axis/WEB-INF/lib . jbpm-3.1.2.jar and jbpm-identity-3.1.2.jar 
+need to be copied as well.
+
+Additional JAR files under lib may need to be copied to webapps/axis/WEB-INF/lib.
+
+- JavaMail (this package is used by the Jt JavaMail Adapter):
+lib/mail.jar
+lib/activation.jar
+
+Deploy the Jt web service by typing the following commands:
+
+cd src/Jt/axis
+java org.apache.axis.client.AdminClient deploy.wsdd
+
+To test the Web Services installation, type the following command:
+
+java Jt.axis.JtWebServicesAdapter
+
+or
+
+java –DLog=log.txt Jt.axis.JtWebServicesAdapter
+
+
+A hello message should be displayed.
+
+
+
+IV.- Installation notes (EJB client application)
+-----------------------------------------------------------------
+
+The EJB JAR file (EJB/jtejb.jar) needs to be deployed in your J2EE container/server.
+This JAR file contains EJB classes and deployment descriptors. 
+Deployment descriptors for Web Logic and WebSphere are included
+in the JAR file. You will need to provide deployment descriptors
+for other J2EE servers.
+
+Set up your client's and server's classpath according to your application
+server requirements:
+
+a) The framework JAR file (Jt.jar) needs to be made available to client
+and server via the CLASSPATH. jbpm-3.1.2.jar and jbpm-identity-3.1.2.jar need 
+to be made available as well.
+
+b) The other JAR files under lib contain packages from other projects that are 
+needed by the Jt framework.
+
+- JavaMail (this package is used by the Jt JavaMail Adapter):
+lib/mail.jar
+lib/activation.jar
+ 
+- Apache Xerces (this package is used by the Jt DAO, XML and Web Services packages):
+lib/resolver.jar
+lib/xercesImpl.jar
+lib/xml-apis.jar
+
+
+You may need to add these JAR files to the CLASSPATH. They may already
+be in your CLASSPATH.
+
+
+The Jt resource file need to be changed depending on the J2EE server being
+used. The following attributes need to be added. For instance, Weblogic
+settings would look like:
+
+! Service Locator (Weblogic settings)
+
+Jt.ejb.JtServiceLocator.url:t3://localhost:7001
+Jt.ejb.JtServiceLocator.factory:weblogic.jndi.WLInitialContextFactory
+Jt.ejb.JtServiceLocator.user:weblogic
+Jt.ejb.JtServiceLocator.password:weblogic
+
+
+To test the EJB installation, type the following command:
+
+java Jt.ejb.JtEJBAdapter
+
+or
+
+java –DLog=log.txt Jt.ejb.JtEJBAdapter
+
+
+A hello message should be displayed.
+
+
+You may need to add jtejb.jar to the CLASSPATH.  Under Windows, the command would look 
+like the following:
+
+java -classpath .\EJB\jtejb.jar;%CLASSPATH% Jt.ejb.JtEJBAdapter
+
+
+V.- Installation notes (jBPM application)
+-----------------------------------------------------------------
+Jt version 1.6 and later versions provide built-in 
+support for jBPM (Business Process Modeling). You will need to add
+two jar files to the CLASSPATH: jbpm-3.1.2.jar and jbpm-identity-3.1.2.jar.
+These jar files can be found under the lib directory. Please refer
+to the basic installation section.
+
+To test the jBPM installation, cd to the Jt installation directory
+and type the following command:
+
+java Jt.jbpm.JtJBPMAdapter processes\helloworld\processdefinition.xml
+
+There is a complete application that uses jBPM and the DAO
+design pattern. This application can be found under the
+installation directory (processes\DAO\processdefintion.xml):
+
+java Jt.jbpm.JtJBPMAdapter processes\DAO\processdefinition.xml
+
+The JDBC adapter and the target database need to be configured for 
+this application to work.

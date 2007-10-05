@@ -1,8 +1,5 @@
 package Jt.examples.patterns;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 import Jt.*;
 
 
@@ -15,7 +12,13 @@ public class SwitchFactory extends JtAbstractFactory {
 
 
 
-  public SwitchFactory() {
+
+private static final long serialVersionUID = 1L;
+
+
+
+
+public SwitchFactory() {
   }
 
 
@@ -30,7 +33,7 @@ public class SwitchFactory extends JtAbstractFactory {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
    String data;
    Object output;
 
@@ -43,7 +46,7 @@ public class SwitchFactory extends JtAbstractFactory {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
 
 
      // Remove this object

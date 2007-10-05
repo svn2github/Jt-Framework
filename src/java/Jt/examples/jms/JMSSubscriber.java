@@ -1,8 +1,7 @@
 package Jt.examples.jms;
 
 import Jt.*;
-import Jt.jms.*;
-import java.io.*;
+
 
 // Demonstrates the use of JtJMSTopicAdapter (JMS publish/subscriber adapter)
 
@@ -15,9 +14,9 @@ public class JMSSubscriber {
   public static void main(String[] args) {
 
     JtFactory main = new JtFactory ();  // Jt Factory
-    JtMessage msg;
-    String greeting;
-    String reply;
+    //JtMessage msg;
+    //String greeting;
+    //String reply;
     Jt.jms.JtJMSTopicAdapter jmsAdapter;
     JtEcho echo = new JtEcho ();
     JtKeyboard keyboard = new JtKeyboard ();

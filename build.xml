@@ -1,0 +1,511 @@
+<!-- A "project" describes a set of targets that may be requested
+     when Ant is executed.  The "default" attribute defines the
+     target which is executed if no specific target is requested,
+     and the "basedir" attribute defines the current working directory
+     from which Ant executes the requested task.  This is normally
+     set to the current working directory.
+-->
+
+
+<project name="Jt Framework" default="compile" basedir=".">
+
+
+
+<!-- ===================== Property Definitions =========================== -->
+
+<!--
+
+  Each of the following properties are used in the build script.
+  Values for these properties are set by the first place they are
+  defined, from the following list:
+  * Definitions on the "ant" command line (ant -Dcatalina.home=xyz compile)
+  * Definitions from a "build.properties" file in the top level
+    source directory
+  * Definitions from a "build.properties" file in the developer's
+    home directory
+  * Default definitions in this build.xml file
+
+  You will note below that property values can be composed based on the
+  contents of previously defined properties.  This is a powerful technique
+  that helps you minimize the number of changes required when your development
+  environment is modified.  Note that property composition is allowed within
+  "build.properties" files as well as in the "build.xml" script.
+
+-->
+
+  <property file="build.properties"/>
+  <property file="${user.home}/build.properties"/>
+
+
+<!-- ==================== File and Directory Names ======================== -->
+
+<!--
+
+  These properties generally define file and directory names (or paths) that
+  affect where the build process stores its outputs.
+
+  app.name             Base name of this application, used to
+                       construct filenames and directories.
+                       Defaults to "myapp".
+
+  app.version          Version identifier for this application.
+
+  build.home           The directory into which the "prepare" and
+                       "compile" targets will generate their output.
+                       Defaults to "build".
+
+  catalina.home        The directory in which you have installed
+                       a binary distribution of Tomcat.  This will
+                       be used by the "deploy" target.
+
+  deploy.home          The name of the directory into which the
+                       deployment hierarchy will be created, and into
+                       which the build directory will be copied.
+                       Defaults to "${catalina.home}/webapps/${app.name}".
+
+  dist.home            The name of the base directory in which
+                       distribution files are created.
+                       Defaults to "dist".
+
+-->
+
+  <property name="app.name"      value="Jt1.7"/>
+  <property name="app.version"   value="1.7"/>
+  <property name="build.home"    value="build"/>
+  <property name="catalina.home" value="/tomcat"/> <!-- UPDATE THIS! -->
+  <property name="deploy.home"   value="${catalina.home}/webapps/${app.name}"/>
+  <property name="dist.home"     value="Jt1.7"/>
+  <property name="jtdist.home"   value="${dist.home}/Jt"/>
+  <property name="deploy.bea"    value="C:\bea\user_projects\domains\mydomain\applications"/>
+  <property name="xdoclet.dir"   value="C:\xdoclet-1.2.2\lib"/>
+  <property name="axis.lib"      value="C:\tomcat/webapps/axis/WEB-INF/lib"/>
+  <property name="olddist.home"  value="C:\Jt\dist"/>
+  <property name="lib.home"      value="lib"/>
+  <property name="jtejb.home"    value="../jtejb"/>
+  <property name="webapps.home"  value="webapps"/>
+  <property name="processes.home"  value="processes"/>
+
+
+
+<!--  ==================== Compilation Control Options ==================== -->
+
+<!--
+
+  These properties control option settings on the Javac compiler when it
+  is invoked using the <javac> task.
+
+  compile.debug        Should compilation include the debug option?
+
+  compile.deprecation  Should compilation include the deprecation option?
+
+  compile.optimize     Should compilation include the optimize option?
+
+-->
+
+  <property name="compile.debug"       value="true"/>
+  <property name="compile.deprecation" value="false"/>
+  <property name="compile.optimize"    value="true"/>
+
+
+
+<!-- ==================== External Dependencies =========================== -->
+
+
+<!--
+
+  Use property values to define the locations of external JAR files on which
+  your application will depend. 
+
+-->
+
+<!-- Dummy external dependency -->
+<!--
+  <property name="foo.jar"
+           value="/path/to/foo.jar"/>
+-->
+
+
+<!-- ==================== Compilation Classpath =========================== -->
+
+<!--
+
+  Rather than relying on the CLASSPATH environment variable, Ant includes
+  features that makes it easy to dynamically construct the classpath you
+  need for each compilation. 
+
+-->
+
+  <path id="compile.classpath">
+
+
+<!--
+    <pathelement location="${foo.jar}"/>
+
+-->
+    <!-- Include all elements that Tomcat exposes to applications -->
+<!--
+    <pathelement location="${catalina.home}/common/classes"/>
+    <fileset dir="${catalina.home}/common/lib">
+      <include name="*.jar"/>
+    </fileset>
+    <pathelement location="${catalina.home}/classes"/>
+    <fileset dir="${catalina.home}/lib">
+      <include name="*.jar"/>
+    </fileset>
+-->
+    <fileset dir="${lib.home}">
+      <include name="*.jar"/>
+    </fileset>
+
+  </path>
+
+
+
+<!-- ==================== All Target ====================================== -->
+
+<!--
+
+  The "all" target is a shortcut for running the "clean" target followed
+  by the "compile" target, to force a complete recompile.
+
+-->
+
+  <target name="all" depends="clean,compile"
+   description="Clean build and dist, then compile"/>
+
+
+
+<!-- ==================== Clean Target ==================================== -->
+
+<!--
+
+  The "clean" target deletes any previous "build" and "dist" directory,
+  so that you can be ensured the application can be built from scratch.
+
+-->
+
+  <target name="clean"
+   description="Delete old build and dist directories">
+  <delete>
+    <fileset dir="src" includes="**/*.class"/>
+  </delete>
+    <delete dir="${build.home}"/>
+
+  </target>
+
+ 
+<!-- ==================== Compile Target ================================== -->
+
+<!--
+
+  The "compile" target transforms source files (from your "src" directory)
+  into object files in the appropriate location in the build directory.
+  This example assumes that you will be including your classes in an
+  unpacked directory hierarchy under "/WEB-INF/classes".
+
+-->
+
+  <target name="compile" 
+   description="Compile Java sources">
+
+    <!-- Compile Java classes as necessary -->
+    <mkdir    dir="${build.home}/WEB-INF/classes"/>
+    <javac srcdir="src/java"
+          destdir="${build.home}/WEB-INF/classes"
+           debug="${compile.debug}"
+     deprecation="${compile.deprecation}"
+        optimize="${compile.optimize}">
+        <classpath refid="compile.classpath"/>
+
+
+
+    </javac>
+
+    <!-- Copy associated resource files -->
+    <copy  todir="${build.home}/WEB-INF/classes">
+    <fileset dir="src/java" includes="**/*.properties"/>
+    </copy>
+
+    <jar destfile="${lib.home}/Jt.jar"
+         basedir="${build.home}/WEB-INF/classes"/>
+
+  </target>
+
+  <target name="ejbcompile" 
+   description="Compile ejb sources">
+
+    <!-- Compile Java classes as necessary -->
+    <javac srcdir="${jtejb.home}/src/java"
+           debug="${compile.debug}"
+     deprecation="${compile.deprecation}"
+        optimize="${compile.optimize}">
+        <classpath refid="compile.classpath"/>
+    </javac>
+
+
+    <mkdir dir="EJB"/>
+    <jar destfile="EJB/jtejb.jar"
+      basedir="${jtejb.home}/src/java"
+      excludes="**/*.java">
+       <manifest>
+       <attribute name="Class-Path" value="Jt.jar"/>  
+       </manifest> 
+    </jar>
+
+  </target>
+
+  <target name="enterprise" 
+   description="enterprise application">
+
+    <jar destfile="hello.ear"
+      basedir="ear"
+      excludes="**/*.java"
+    />
+
+  </target>
+ 
+  <target name="backup" 
+   description="backup of sources">
+
+  <jar destfile="src.jar"
+    basedir="."
+    includes="**/*.java,**/*.xml,**/*.txt,**/*.Jtrc"
+  />
+
+  </target>
+
+
+
+<!-- ==================== Deploy Target =================================== -->
+
+<!--
+
+  The "deploy" target copies the contents of the build directory into a
+  location required by our servlet container, and picks up any external
+  dependencies along the way.  
+
+-->
+
+  <target name="deploy" depends="compile"
+   description="Deploy application to servlet container">
+
+    <!-- Copy the contents of the build directory -->
+    <mkdir     dir="${deploy.home}"/>
+    <copy    todir="${deploy.home}">
+      <fileset dir="${build.home}"/>
+    </copy>
+
+  </target>
+
+
+  <target name="axisdeploy"
+   description="Deploy Jt.jar to Axis directory">
+
+    <!-- Copy the contents of the build directory -->
+    <copy   file="${lib.home}/Jt.jar" todir="${axis.lib}"/>
+ 
+  </target>
+
+
+  <target name="olddist"
+   description="Deploy Jt.jar to the old dist directory">
+
+    <!-- Copy the contents of the build directory -->
+    <copy file="${lib.home}/Jt.jar" todir="${olddist.home}"/>
+ 
+  </target>
+
+
+
+  <target name="tomcatdeploy"
+   description="">
+    <copy file="${lib.home}/Jt.jar" todir="${webapps.home}/JtStrutsExamples/WEB-INF/lib"/>
+    <copy file="${lib.home}/Jt.jar" todir="${webapps.home}/JtWebExamples/WEB-INF/lib"/>
+
+
+    <copy    todir="${webapps.home}/JtStrutsExamples/WEB-INF/processes">
+      <fileset dir="${processes.home}"/>
+    </copy>
+   <copy    todir="${catalina.home}/webapps">
+     <fileset dir="${webapps.home}"/>
+   </copy>
+  </target>
+
+<!-- ==================== Dist Target ===================================== -->
+
+
+<!--
+
+  The "dist" target creates a binary/source distribution of your application
+  in a directory structure ready to be archived in a tar.gz or zip file.
+
+-->
+
+  <target name="dist" depends="prepare"
+   description="Create binary/source distribution">
+
+
+    <copy file="README" todir="${jtdist.home}"/>
+    <copy file="License" todir="${jtdist.home}"/>
+    <copy file="Installation" todir="${jtdist.home}"/>
+    <copy file="build.xml" todir="${jtdist.home}"/>
+    <copy file="config/.Jtrc" todir="${jtdist.home}"/>
+    <copy file="lgpl.html" todir="${jtdist.home}"/>
+    <copy file="lgpl.txt" todir="${jtdist.home}"/>
+
+    <!-- Copy documentation subdirectory -->
+<!--
+    <copy    todir="${jtdist.home}/docs">
+      <fileset dir="docs"/>
+    </copy>
+-->
+    <copy    todir="${dist.home}/jtejb">
+      <fileset dir="${jtejb.home}"/>
+    </copy>
+
+    <copy    todir="${jtdist.home}/lgpl_files">
+      <fileset dir="lgpl_files"/>
+    </copy>
+
+    <copy    todir="${jtdist.home}/lib">
+      <fileset dir="lib">
+        <include name = "**/Jt.jar"/>
+        <include name = "**/jbpm*.jar"/>
+        <include name = "**/activation.jar"/>
+        <include name = "**/dom4j*.jar"/>
+        <include name = "**/mail.jar"/>
+        <include name = "**/resolver.jar"/>
+        <include name = "**/commons-logging.jar"/>
+        <include name = "**/xercesImpl.jar"/>
+        <include name = "**/xml-apis.jar"/>
+        <exclude name = "**/weblogic.jar"/>
+      </fileset>
+    </copy>
+
+    <copy    todir="${jtdist.home}/EJB">
+      <fileset dir="EJB"/>
+    </copy>
+
+    <copy    todir="${jtdist.home}/src">
+      <fileset dir="src"/>
+    </copy>
+
+    <copy    todir="${jtdist.home}/webapps/JtWebExamples">
+      <fileset dir="webapps/JtWebExamples"/>
+    </copy>
+
+    <copy    todir="${jtdist.home}/webapps/JtStrutsExamples">
+      <fileset dir="webapps/JtStrutsExamples">
+        <!-- <exclude name = "**/**.jar"/> -->
+      </fileset>
+    </copy>
+
+    <copy    todir="${jtdist.home}/processes">
+      <fileset dir="processes"/>
+    </copy>
+
+
+    <copy    todir="${jtdist.home}/licenses">
+      <fileset dir="licenses"/>
+    </copy>
+
+    <!-- Create application Zip file -->
+
+
+    <jar jarfile="${app.name}.zip"
+         basedir="${dist.home}"/>
+
+
+    <!-- Create application JAR file -->
+
+<!--
+    <jar jarfile="${dist.home}/${app.name}.war"
+         basedir="${deploy.home}"/>
+-->
+
+    <!-- Copy additional files to ${dist.home} as necessary -->
+
+  </target>
+
+
+
+<!-- ==================== Javadoc Target ================================== -->
+
+<!--
+
+  The "javadoc" target creates Javadoc API documentation for the Java
+  classes included in the application.  
+
+-->
+
+  <target name="javadoc" depends="compile"
+   description="Create Javadoc API documentation">
+
+    <mkdir          dir="docs/api"/>
+    <javadoc sourcepath="src/java"
+                destdir="docs/api"
+           packagenames="Jt.*, Jt.axis.*, Jt.xml.*"
+           excludepackagenames="Jt.examples.*">
+           <classpath refid="compile.classpath"/>
+
+
+    </javadoc>
+
+
+  </target>
+
+  <target name="ejbjavadoc" depends="ejbcompile"
+   description="Create Javadoc API documentation">
+
+    <mkdir          dir="docs/ejbapi"/>
+    <javadoc sourcepath="${jtejb.home}/src/java"
+                destdir="docs/ejbapi"
+           packagenames="*"
+           excludepackagenames="Jt.ejb.examples.*">
+     
+      <classpath refid="compile.classpath"/>
+
+    </javadoc>
+
+
+  </target>
+
+<!-- ==================== Prepare Target ================================== -->
+
+<!--
+
+
+-->
+
+  <target name="prepare">
+    <copy file="${lib.home}/Jt.jar" todir="${webapps.home}/JtStrutsExamples/WEB-INF/lib"/>
+    <copy file="${lib.home}/Jt.jar" todir="${webapps.home}/JtWebExamples/WEB-INF/lib"/>
+    <copy file="config/.Jtrc" todir="${webapps.home}/JtStrutsExamples/WEB-INF"/>
+    <copy file="config/.Jtrc" todir="${webapps.home}/JtWebExamples/WEB-INF"/>
+
+
+    <copy    todir="${webapps.home}/JtStrutsExamples/WEB-INF/processes">
+      <fileset dir="${processes.home}"/>
+    </copy>
+
+<!--
+
+    <mkdir  dir="${build.home}"/>
+    <copy todir="${build.home}">
+      <fileset dir="web"/>
+    </copy>
+
+    <mkdir  dir="${build.home}/WEB-INF/lib"/>
+
+-->
+<!--
+    <copy todir="${build.home}/WEB-INF/lib" file="${foo.jar}"/>
+-->
+
+    <!-- Copy static files from external dependencies as needed -->
+
+  </target>
+
+
+
+</project>

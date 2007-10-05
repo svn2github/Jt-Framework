@@ -1,0 +1,69 @@
+! Jt resources
+
+! Hello World demo application
+
+Jt.examples.HelloWorld.greetingMessage:Hi there ...
+
+
+! Jt Factory
+
+!Jt.JtFactory.logging:true
+
+! JDBC adapter (MySQL settings)
+
+Jt.JtSQL.user:root
+Jt.JtSQL.password:123456
+Jt.JtSQL.driver:com.mysql.jdbc.Driver
+Jt.JtSQL.url:jdbc:mysql://localhost/test
+
+
+! JDBC adapter (MySQL settings)
+
+Jt.JtJDBCAdapter.user:root
+Jt.JtJDBCAdapter.password:123456
+Jt.JtJDBCAdapter.driver:com.mysql.jdbc.Driver
+Jt.JtJDBCAdapter.url:jdbc:mysql://localhost/test
+!Jt.JtJDBCAdapter.datasource:datasrc
+
+
+! JMS Adapter (point-to-pint)
+
+Jt.jms.JtJMSQueueAdapter.queue:testQueue
+Jt.jms.JtJMSQueueAdapter.connectionFactory:TestJMSConnectionFactory
+Jt.jms.JtJMSQueueAdapter.timeout:1
+
+
+! JMS Adapter (publish/subscribe)
+
+Jt.jms.JtJMSTopicAdapter.topic:jtTopic
+Jt.jms.JtJMSTopicAdapter.connectionFactory:TestJMSConnectionFactory
+Jt.jms.JtJMSTopicAdapter.timeout:1
+
+
+! Web services adapter
+
+Jt.axis.JtWebServicesAdapter.url:http://www.server.com/axis/services/JtAxisService
+Jt.axis.JtWebServicesAdapter.remoteLogFile:/home/freedom2/folder/rlog.txt
+
+! EJB Adapter
+
+Jt.ejb.JtBusinessDelegate.remoteLogFile:c:\log2.txt
+
+! Service Locator (Weblogic settings)
+
+Jt.ejb.JtServiceLocator.url:t3://localhost:7001
+Jt.ejb.JtServiceLocator.factory:weblogic.jndi.WLInitialContextFactory
+Jt.ejb.JtServiceLocator.user:weblogic
+Jt.ejb.JtServiceLocator.password:weblogic
+
+! Java Mail Adapter
+
+!Jt.JtMail.server:smtp.comcast.net
+Jt.JtMail.username:username
+Jt.JtMail.password:password
+Jt.JtMail.port:587
+
+! JNDI Adapter
+
+Jt.jndi.JtJNDIAdapter.factory:weblogic.jndi.WLInitialContextFactory
+Jt.jndi.JtJNDIAdapter.url:t3://localhost:7001

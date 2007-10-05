@@ -2,9 +2,6 @@
 
 package Jt.examples.patterns;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 
 
@@ -14,6 +11,8 @@ import Jt.*;
 
 public class Flyweight extends JtFlyweight {
 
+
+    private static final long serialVersionUID = 1L;
 
 
   /**
@@ -28,10 +27,10 @@ public class Flyweight extends JtFlyweight {
 
    String msgid = null;
    JtMessage e = (JtMessage) message;
-   Object content;
-   Object data;
-   JtMessage tmp;
-   JtInterface aux, aux1;
+   //Object content;
+   //Object data;
+   //JtMessage tmp;
+   //JtInterface aux, aux1;
    
 
 
@@ -43,8 +42,8 @@ public class Flyweight extends JtFlyweight {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
-     data = e.getMsgData ();
+     //content = e.getMsgContent();
+     //data = e.getMsgData ();
 
      // Remove this object
      if (msgid.equals ("JtREMOVE")) {

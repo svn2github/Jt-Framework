@@ -1,8 +1,6 @@
 package Jt.examples.patterns;
 
 import Jt.*;
-import java.io.*;
-import java.util.*;
 import Jt.xml.*;
 
 /**
@@ -15,6 +13,7 @@ import Jt.xml.*;
 public class Calculator extends JtCommand {
 
 
+  private static final long serialVersionUID = 1L;
   private int total = 0;                // Calculator Total
 
   public Calculator () {
@@ -62,7 +61,7 @@ public class Calculator extends JtCommand {
      // JtRemove message (Remove Object)
 
      if (msgid.equals ("JtREMOVE")) {
-       return (null);
+       return (this);
      }
 
      handleError ("Calculator.processMessage: invalid message id:" + msgid);
@@ -78,7 +77,7 @@ public class Calculator extends JtCommand {
   public static void main(String[] args) {
 
     JtObject main = new JtFactory ();
-    JtMessage msg, msg1;
+    JtMessage msg;
     JtXMLHelper xmlHelper = new JtXMLHelper ();
     Object total;
     JtKeyboard keyboard;

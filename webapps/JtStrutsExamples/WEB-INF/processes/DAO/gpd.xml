@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-diagram name="test" width="784" height="428">
+  <node name="start" x="310" y="14" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="end" x="311" y="387" width="140" height="40"/>
+  <node name="Find Record (p)" x="48" y="300" width="145" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+      <bendpoint w1="-111" h1="1" w2="-372" h2="217"/>
+      <bendpoint w1="-113" h1="-214" w2="-374" h2="2"/>
+    </transition>
+  </node>
+  <node name="Enter Selection (Keyboard)" x="284" y="84" width="194" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="Selection ? (Switch)" x="312" y="228" width="140" height="40">
+    <transition name="1">
+      <label x="5" y="-10"/>
+      <bendpoint w1="-261" h1="-1" w2="1" h2="-73"/>
+    </transition>
+    <transition name="4">
+      <label x="5" y="-10"/>
+      <bendpoint w1="263" h1="0" w2="-1" h2="-72"/>
+    </transition>
+    <transition name="2">
+      <label x="5" y="-10"/>
+    </transition>
+    <transition name="3">
+      <label x="5" y="-10"/>
+    </transition>
+    <transition name="5">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="Add Record (p)" x="204" y="300" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+      <bendpoint w1="0" h1="64" w2="-81" h2="263"/>
+      <bendpoint w1="-266" h1="66" w2="-373" h2="282"/>
+      <bendpoint w1="-267" h1="-215" w2="-374" h2="1"/>
+    </transition>
+  </node>
+  <node name="Delete Record (p)" x="576" y="300" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+      <bendpoint w1="133" h1="1" w2="398" h2="217"/>
+      <bendpoint w1="134" h1="-217" w2="399" h2="-1"/>
+    </transition>
+  </node>
+  <node name="Update Record (p)" x="420" y="300" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+      <bendpoint w1="1" h1="66" w2="110" h2="282"/>
+      <bendpoint w1="289" h1="66" w2="398" h2="282"/>
+      <bendpoint w1="289" h1="-217" w2="398" h2="-1"/>
+    </transition>
+  </node>
+  <node name="Valid selection ?" x="312" y="156" width="140" height="40">
+    <transition name="yes">
+      <label x="5" y="-10"/>
+    </transition>
+    <transition name="no">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="Print Error Message" x="552" y="156" width="169" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+      <bendpoint w1="143" h1="-2" w2="398" h2="70"/>
+      <bendpoint w1="144" h1="-72" w2="399" h2="0"/>
+    </transition>
+  </node>
+</process-diagram>

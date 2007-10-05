@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-diagram name="DAODelete" width="406" height="439">
+  <node name="start" x="49" y="26" width="140" height="40">
+    <transition name="JtACTIVATE (Read email)">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="keyboard" x="48" y="96" width="140" height="40">
+    <transition name="JtFIND (Find Record)">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="end" x="47" y="398" width="140" height="40"/>
+  <node name="DAOMember" x="48" y="167" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="Print Error Message" x="231" y="244" width="157" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+      <bendpoint w1="1" h1="153" w2="185" h2="-1"/>
+    </transition>
+  </node>
+  <node name="Record found ?" x="49" y="244" width="140" height="40">
+    <transition name="no">
+      <label x="-6" y="-14"/>
+    </transition>
+    <transition name="JtDELETE">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="DAOMember (1)" x="48" y="325" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+</process-diagram>

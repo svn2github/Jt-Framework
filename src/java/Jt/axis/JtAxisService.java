@@ -1,12 +1,9 @@
 package Jt.axis;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 import Jt.xml.*;
 import Jt.*;
-import org.apache.axis.*;
-import org.apache.axis.session.*;
+//import org.apache.axis.*;
+//import org.apache.axis.session.*;
 
 /**
  * Axis Web Service used to interface with the Jt Framework. 
@@ -15,6 +12,8 @@ import org.apache.axis.session.*;
 public class JtAxisService extends JtObject {
 
 
+
+  private static final long serialVersionUID = 1L;
   JtScriptInterpreter reader = null;
   JtXMLHelper xmlHelper = null;
 
@@ -72,10 +71,10 @@ public class JtAxisService extends JtObject {
   public String processMessage (String xmlMessage) {
   JtMessage msg;
   Object scriptOutput = null;
-      MessageContext mc = MessageContext.
-         getCurrentContext();
-      Session session = mc.getSession();
-      String name = (String)session.get("name");
+      //MessageContext mc = MessageContext.
+         //getCurrentContext();
+      //Session session = mc.getSession();
+      //String name = (String)session.get("name");
 
     if (xmlMessage == null)
       return (null);
@@ -121,8 +120,8 @@ public class JtAxisService extends JtObject {
 
     JtObject main = new JtObject ();
     JtMessage msg1, msg2;
-    Integer count;
-    JtXMLMsgReader reader; // XML reader;
+    //Integer count;
+    //JtXMLMsgReader reader; // XML reader;
     JtAxisService adapter;
     String str;
 

@@ -5,11 +5,14 @@ package Jt.examples;
 
 import Jt.*;
 
-
+import java.lang.reflect.*;
+import java.beans.*;
 import java.util.*;
-import java.text.*;
+
 
 public class DAOMember extends JtDAO   {
+
+private static final long serialVersionUID = 1L;
 private String email;
 private String firstname;
 private String lastname;
@@ -174,13 +177,28 @@ private boolean initted = false;
   // processMessageEvent: process messages
 
   public Object processMessage (Object event) {
-  String content;
-  String query;
+  //String content;
+  //String query;
   JtMessage e = (JtMessage) event;
+
+
+   if (e == null ||  (e.getMsgId() == null))
+     return (null);
 
    if (!initted) {
      initted = true;
      mapAttributes ();
+   }
+
+   if (e.getMsgId().equals("UPDATE_RECORD")) {
+	updateRecord ();
+	return (this);
+   }
+
+   
+   if (e.getMsgId().equals("INPUT_RECORD")) {
+		inputRecord ();
+		return (this);
    }
     // Let the superclass handle all the messages
 
@@ -189,15 +207,136 @@ private boolean initted = false;
 
   }
 
+
+  private String readValue () {
+    JtMessage msg = new JtMessage ("JtACTIVATE");
+    JtKeyboard keyboard = new JtKeyboard ();
+    String reply;
+
+    reply = (String) sendMessage (keyboard, msg);
+    return (reply);
+  }
+
+  private void updateRecord () {
+
+   //Object args[];
+   PropertyDescriptor[] prop;
+   int i;
+   //Class p;
+   Method m;
+   BeanInfo info = null;
+   Object value;
+   String input = null;
+   //JtMessage msg = new JtMessage ("JtUPDATE");
+
+
+     try {
+
+       info = Introspector.getBeanInfo(
+              this.getClass (), this.getClass ().getSuperclass());
+     } catch(Exception e) {
+        handleException (e);
+        return;
+     }
+
+     prop = info.getPropertyDescriptors();
+     for(i = 0; i < prop.length; i++) {
+//       System.out.print ("Attribute:" + 
+//            prop[i].getName());
+       //p = prop[i].getPropertyType();
+       
+       try {
+         m = prop[i].getReadMethod ();
+         if (m == null) {
+           handleError 
+	     ("JtDAO: getReadMethod returned null");
+             return;
+         }
+
+         value = m.invoke (this, null);
+
+         System.out.print (this.getClass ().getName () + "." +
+             prop[i].getName() + "(" + value + "):");
+         input = readValue ();
+         if (input == null || input.equals ("")) {
+           continue;
+         }
+         setValue (this, prop[i].getName(), input);
+        } catch (Exception e) {
+         handleException(e);
+         return;
+        }
+      }
+      //sendMessage (this, msg);
+
+   }  
+
+  private void inputRecord () {
+
+	   //Object args[];
+	   PropertyDescriptor[] prop;
+	   int i;
+	   //Class p;
+	   Method m;
+	   BeanInfo info = null;
+	   Object value;
+	   String input = null;
+	   //JtMessage msg = new JtMessage ("JtUPDATE");
+
+
+	     try {
+
+	       info = Introspector.getBeanInfo(
+	              this.getClass (), this.getClass ().getSuperclass());
+	     } catch(Exception e) {
+	        handleException (e);
+	        return;
+	     }
+
+	     prop = info.getPropertyDescriptors();
+	     for(i = 0; i < prop.length; i++) {
+//	       System.out.print ("Attribute:" + 
+//	            prop[i].getName());
+	       //p = prop[i].getPropertyType();
+	       
+	       try {
+	         m = prop[i].getReadMethod ();
+	         if (m == null) {
+	           handleError 
+		     ("JtDAO: getReadMethod returned null");
+	             return;
+	         }
+
+	         value = m.invoke (this, null);
+
+	         if (value != null)
+	           System.out.print (this.getClass ().getName () + "." +
+	                 prop[i].getName() + "(" + value + "):");
+	         else
+	           System.out.print (this.getClass ().getName () + "." +
+	             prop[i].getName()+":");
+	         
+	         input = readValue ();
+	         if (input == null || input.equals ("")) {
+	           continue;
+	         }
+	         setValue (this, prop[i].getName(), input);
+	        } catch (Exception e) {
+	         handleException(e);
+	         return;
+	        }
+	      }
+	      //sendMessage (this, msg);
+
+	   }
+  
+  
   // Test program
 
   public static void main(String[] args) {
 
-    JtObject main = new JtObject ();
-    JtMessage msg, msg1;
-    Integer count;
-    Date date = new Date ();
-    DateFormat df = DateFormat.getDateInstance();
+    JtObject main = new JtFactory ();
+
     DAOMember tmp;
     Exception ex;
     Object tmp1;
@@ -205,7 +344,7 @@ private boolean initted = false;
 
     //main.setObjTrace (1);
     main.createObject ("Jt.examples.DAOMember", "member");
-    msg = (JtMessage) main.createObject ("Jt.JtMessage", "message");
+    main.createObject ("Jt.JtMessage", "message");
 
     main.setValue ("member", "key", "email");
     main.setValue ("member", "table", "member");
@@ -268,7 +407,6 @@ private boolean initted = false;
       else
         System.out.println ("JtFIND: FAIL");
 
-
     main.setValue ("message", "msgId", "JtPRINT");
     main.sendMessage ("member", "message");
 
@@ -280,8 +418,16 @@ private boolean initted = false;
     main.setValue ("member", "status", "2006");
     main.setValue ("member", "email_flag", "101");
 
+/*
+    main.setValue ("message", "msgId", "UPDATE_RECORD");
+    main.sendMessage ("member", "message");
+*/
     main.setValue ("message", "msgId", "JtUPDATE");
     tmp1 = main.sendMessage ("member", "message");
+
+    main.setValue ("message", "msgId", "JtPRINT");
+    main.sendMessage ("member", "message");
+
 
     if (tmp1 == null){ 
       System.out.println ("JtUPDATE: FAIL");

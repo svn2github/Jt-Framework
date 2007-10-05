@@ -1,12 +1,7 @@
 
 
 package Jt.xml;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
+
 import Jt.*;
 
 /**
@@ -15,7 +10,9 @@ import Jt.*;
 
 
 public class JtScriptInterpreter extends JtObject  {
-  private XMLReader reader = null;
+
+  private static final long serialVersionUID = 1L;
+  //private XMLReader reader = null;
   private String filename;
   private String content;
   private boolean remoteInvocation = false;
@@ -80,6 +77,7 @@ public class JtScriptInterpreter extends JtObject  {
 
   // propagateException: 
 
+  /*
   private Exception propagateException (Object obj)
   {
     Exception ex;
@@ -95,7 +93,7 @@ public class JtScriptInterpreter extends JtObject  {
 
     return (ex);
   }
- 
+  */
 
    // Interpret Jt Message: update scriptOutput for JtCREATE_OBJECT, JtSET_VALUE
    //                       and JtSEND_MESSAGE
@@ -202,7 +200,7 @@ public class JtScriptInterpreter extends JtObject  {
     JtIterator iterator;
     String str;
     JtFile file;
-    Object result = null;
+    //Object result = null;
     Exception ex;
 
     if (filename != null && content != null) {
@@ -282,7 +280,7 @@ public class JtScriptInterpreter extends JtObject  {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
 
      if (e == null)
 	return null;
@@ -313,9 +311,9 @@ public class JtScriptInterpreter extends JtObject  {
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg, msg1;
-    Integer count;
-    String str;
+    //JtMessage msg, msg1;
+    //Integer count;
+    //String str;
 
     main.setObjTrace (1);
     //main.setLogFile ("log.txt");
@@ -330,7 +328,7 @@ public class JtScriptInterpreter extends JtObject  {
 
     main.createObject ("Jt.xml.JtScriptInterpreter", "reader");
 
-    msg = (JtMessage) main.createObject ("Jt.JtMessage", "message");
+    main.createObject ("Jt.JtMessage", "message");
     main.setValue ("message", "msgId", "JtPARSE");
     main.setValue ("reader", "filename", args[0]);
 

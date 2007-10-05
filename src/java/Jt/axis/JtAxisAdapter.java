@@ -1,18 +1,11 @@
 
 package Jt.axis;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 import Jt.xml.*;
                     
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import org.apache.axis.encoding.XMLType;
-import org.apache.axis.utils.Options;
-
-import javax.xml.namespace.QName;
 import javax.xml.rpc.ParameterMode;
 
 
@@ -22,7 +15,7 @@ import javax.xml.rpc.ParameterMode;
 
 public class JtAxisAdapter extends JtObject {
 
-
+  private static final long serialVersionUID = 1L;
   private String url = null;
   private Service  service = null;
   private Call     call    = null;
@@ -114,7 +107,7 @@ public class JtAxisAdapter extends JtObject {
       String ret = null;
       JtXMLHelper xmlHelper = null;
       JtMessage msg = new JtMessage ("JtCONVERT_XML_TO_OBJECT");
-      String xmlOutput = null;
+      //String xmlOutput = null;
       Object tmp, tmp1, output = null;
       JtIterator it;
 
@@ -212,6 +205,7 @@ public class JtAxisAdapter extends JtObject {
     JtObject main = new JtObject ();
     JtMessage msg;
     JtAxisAdapter adapter;
+    /*
     String st = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<Object>\n" +
                 "<classname>Jt.JtList</classname>\n" +  
@@ -222,7 +216,7 @@ public class JtAxisAdapter extends JtObject {
                 "<msgData>test</msgData>\n" +
                 "</Object>\n";
 
-
+      */
 
 
     //main.setObjTrace (1);
@@ -237,7 +231,7 @@ public class JtAxisAdapter extends JtObject {
 
     // Create template object
 
-    adapter = (JtAxisAdapter) main.createObject ("Jt.service.JtAxisAdapter", "adapter");
+    adapter = (JtAxisAdapter) main.createObject ("Jt.axis.JtAxisAdapter", "adapter");
     main.setValue (adapter, "url",
       "http://localhost:8080/axis/services/MyService");       
 

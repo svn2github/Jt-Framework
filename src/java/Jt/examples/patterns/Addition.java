@@ -1,10 +1,7 @@
 
 
 package Jt.examples.patterns;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 import Jt.*;
 
 /**
@@ -15,11 +12,11 @@ public class Addition extends JtObject {
 
 
 
+ private static final long serialVersionUID = 1L;
+
 
   public Addition () {
   }
-
-
 
 
   /**
@@ -56,14 +53,10 @@ public class Addition extends JtObject {
 
 
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       return (this);     
      }
 
-/*
-     if (this.getObjSuccessor() != null) {
-       sendMessage (this.getObjSuccessor(), event);
-     }
-*/
+
      handleError ("Addition.processMessage: invalid message id:" + msgid);
      return (null);
 

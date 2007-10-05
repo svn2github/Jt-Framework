@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-diagram name="DAOFind" width="353" height="367">
+  <node name="start" x="49" y="26" width="140" height="40">
+    <transition name="JtACTIVATE">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="Build query" x="49" y="98" width="140" height="40">
+    <transition name="JtFIND_RECORDS ">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="end" x="48" y="324" width="140" height="40"/>
+  <node name="DAOMember" x="48" y="172" width="140" height="40">
+    <transition name="JtREMOVE (remove the DAO)">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="DAOMember (ref)" x="48" y="252" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+</process-diagram>

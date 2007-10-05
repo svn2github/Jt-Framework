@@ -16,6 +16,8 @@ import org.xml.sax.helpers.*;
 
 public class JtXMLHelper extends JtObject implements ContentHandler {
 
+
+  private static final long serialVersionUID = 1L;
   private XMLReader reader = null;
   protected static final String DEFAULT_PARSER_NAME = "org.apache.xerces.parsers.SAXParser";
   protected static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -79,11 +81,11 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
 
 
   Object setResources (Object obj) {
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
    int i;
-   Class p;
-   Method m;
+   //Class p;
+   //Method m;
    BeanInfo info = null;
    String tval; 
 
@@ -118,10 +120,10 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
 
   private Hashtable getAttributes (Object obj) {
 
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
    int i;
-   Class p;
+   //Class p;
    Method m;
    BeanInfo info = null;
    Object value;
@@ -145,7 +147,7 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
      prop = info.getPropertyDescriptors();
      for(i = 0; i < prop.length; i++) {
 
-       p = prop[i].getPropertyType();
+       //p = prop[i].getPropertyType();
        
        try {
          m = prop[i].getReadMethod ();
@@ -576,7 +578,7 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
   }
 
   // realize
-  void realize () {
+  void realizeHelper() {
 
      if (reader != null)
        return;
@@ -603,7 +605,7 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
       return (null);
 
     if (reader == null)
-      realize ();
+      realizeHelper();
 
 
     try {
@@ -666,9 +668,9 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
 
     StringBuffer buf = new StringBuffer ();
 
-    Hashtable tbl;  
+    //Hashtable tbl;  
     //Iterator it; 
-    String key;
+    //String key;
     JtIterator jit;
     Object tmp;
     String tmp1;
@@ -780,7 +782,7 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
 
   }
 
-  private void initialize () {
+  private void initializeHelper () {
     buffer = null;
     map = null;
     object = null;
@@ -826,7 +828,7 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
 
      if (msgid.equals ("JtCONVERT_XML_TO_OBJECT")) {
 
-        initialize ();             
+        initializeHelper ();             
         return (convertXMLToObject ((String) content));
      }
 
@@ -851,11 +853,11 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
 
     JtObject main = new JtObject ();
     JtMessage msg1, msg2;
-    Integer count;
+    //Integer count;
     String tmp;
     Integer i;
     JtXMLHelper helper;
-    JtCommand command;
+    JtOSCommand command;
     JtList col;
 
 
@@ -924,7 +926,7 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
     }
 
 
-    command = (JtCommand) main.createObject ("Jt.JtCommand", "cmd");
+    command = (JtOSCommand) main.createObject ("Jt.JtOSCommand", "cmd");
     main.setValue ("cmd", "command", "notepad");
 
     msg1.setMsgId ("JtCONVERT_OBJECT_TO_XML");
@@ -938,7 +940,7 @@ public class JtXMLHelper extends JtObject implements ContentHandler {
 
     msg1.setMsgContent (tmp);
 
-    command = (JtCommand) main.sendMessage (helper, msg1);
+    command = (JtOSCommand) main.sendMessage (helper, msg1);
 
     msg1.setMsgId ("JtEXECUTE");
     main.sendMessage (command, msg1);

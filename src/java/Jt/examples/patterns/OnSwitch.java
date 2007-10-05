@@ -1,8 +1,4 @@
 package Jt.examples.patterns;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 
 
@@ -16,8 +12,12 @@ import Jt.*;
 public class OnSwitch extends JtState {
 
 
+private static final long serialVersionUID = 1L;
 
-  public OnSwitch () {
+
+
+
+public OnSwitch () {
   }
 
 
@@ -34,9 +34,9 @@ public class OnSwitch extends JtState {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
-   JtMessage aux;
+   //Object content;
+   //Object data;
+   //JtMessage aux;
 
 
      if (e == null)
@@ -47,7 +47,7 @@ public class OnSwitch extends JtState {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
 
      if (msgid.equals ("JtREMOVE")) {
        return (this);     

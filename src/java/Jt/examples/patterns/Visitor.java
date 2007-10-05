@@ -1,6 +1,4 @@
 package Jt.examples.patterns;
-import java.util.*;
-import java.lang.reflect.*;
 import java.beans.*;
 import java.io.*;
 import Jt.*;
@@ -14,7 +12,9 @@ import Jt.*;
 public class Visitor extends JtObject {
 
 
-  public Visitor() {
+ private static final long serialVersionUID = 1L;
+
+ public Visitor() {
   }
 
    // Encode the object using XML format
@@ -73,8 +73,8 @@ public class Visitor extends JtObject {
    String msgid = null;
    JtMessage e = (JtMessage) event;
    Object content;
-   Object data;
-   JtMessage aux;
+   //Object data;
+   //JtMessage aux;
 
 
      if (e == null)

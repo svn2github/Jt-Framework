@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-diagram name="DAOInsert" width="406" height="439">
+  <node name="start" x="49" y="26" width="140" height="40">
+    <transition name="JtACTIVATE">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="Enter Email (Keyboard)" x="23" y="94" width="194" height="40">
+    <transition name="JtFIND">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="end" x="47" y="398" width="140" height="40"/>
+  <node name="Find Record (DAOMember)" x="31" y="167" width="176" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="Print Error Message" x="231" y="244" width="157" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+      <bendpoint w1="1" h1="153" w2="185" h2="-1"/>
+    </transition>
+  </node>
+  <node name="Record found ?" x="49" y="244" width="140" height="40">
+    <transition name="yes">
+      <label x="-6" y="-14"/>
+    </transition>
+    <transition name="JtINSERT">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="DAOMember (1)" x="48" y="325" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+</process-diagram>

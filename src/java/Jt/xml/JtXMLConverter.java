@@ -1,9 +1,5 @@
 
 package Jt.xml;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 
 /**
@@ -13,7 +9,9 @@ import Jt.*;
 
 public class JtXMLConverter extends JtObject {
 
-  private String xmlMsg = null;
+
+  private static final long serialVersionUID = 1L;
+  //private String xmlMsg = null;
   private StringBuffer buffer = null;
   private String xmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
@@ -161,7 +159,7 @@ public class JtXMLConverter extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
 
      if (e == null)
 	return null;
@@ -171,7 +169,7 @@ public class JtXMLConverter extends JtObject {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
 
      if (msgid.equals ("JtCONVERT"))
        return (convertToXML ());
@@ -193,7 +191,7 @@ public class JtXMLConverter extends JtObject {
 
     JtObject main = new JtObject ();
     JtMessage msg1;
-    Integer count;
+    //Integer count;
     JtXMLConverter converter;
     String str;
 

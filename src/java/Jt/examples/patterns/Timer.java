@@ -1,9 +1,7 @@
 package Jt.examples.patterns;
 
 import Jt.*;
-import java.io.*;
 import java.util.*;
-import Jt.xml.*;
 
 
 /**
@@ -14,6 +12,8 @@ import Jt.xml.*;
 
 public class Timer extends JtCommand {
 
+
+  private static final long serialVersionUID = 1L;
   private long tstart;             // t0
   private long tend;               // t1
   private double time;             // Elapsed time in seconds (delta)
@@ -40,7 +40,7 @@ public class Timer extends JtCommand {
 
    String msgid = null;
    JtMessage msg = (JtMessage) message;
-   Object content;
+   //Object content;
 
      if (msg == null)
 	return null;
@@ -50,7 +50,7 @@ public class Timer extends JtCommand {
      if (msgid == null)
 	return null;
 
-     content = msg.getMsgContent();
+     //content = msg.getMsgContent();
 
      // Start timer
 
@@ -125,8 +125,8 @@ public class Timer extends JtCommand {
   public static void main(String[] args) {
 
     JtObject main = new JtFactory ();
-    JtMessage msg, msg1;
-    JtXMLHelper xmlHelper = new JtXMLHelper ();
+    //JtMessage msg, msg1;
+    //JtXMLHelper xmlHelper = new JtXMLHelper ();
    
 
 

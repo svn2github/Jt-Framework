@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-diagram name="helloworld" width="353" height="317">
+  <node name="start" x="121" y="48" width="140" height="40">
+    <transition name="JtHello message">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="helloWorld object" x="121" y="132" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+  <node name="end" x="121" y="276" width="140" height="40"/>
+  <node name="Print reply" x="121" y="204" width="140" height="40">
+    <transition name="">
+      <label x="5" y="-10"/>
+    </transition>
+  </node>
+</process-diagram>

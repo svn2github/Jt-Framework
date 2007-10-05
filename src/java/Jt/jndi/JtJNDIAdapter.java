@@ -2,9 +2,7 @@ package Jt.jndi;
 
 //import javax.ejb.*;
 import javax.naming.*;
-import java.rmi.*;
 import java.util.Properties;
-import java.util.*;
 import Jt.*;
 
 
@@ -14,10 +12,14 @@ import Jt.*;
 
 public class JtJNDIAdapter extends JtAdapter {
 
-  private String url = "t3://localhost:7001"; // Default value (Weblogic)
-  private String user = null;
-  private String password = null;
-  private String factory = "weblogic.jndi.WLInitialContextFactory"; // Default value (Weblogic)
+
+  private static final long serialVersionUID = 1L;
+  //private String url = "t3://localhost:7001"; // Default value (Weblogic)
+  private String url;
+  private String user;
+  private String password;
+  private String factory;
+  //private String factory = "weblogic.jndi.WLInitialContextFactory"; // Default value (Weblogic)
   private boolean initted = false;
   private transient Context ctx = null;
 
@@ -110,7 +112,11 @@ public class JtJNDIAdapter extends JtAdapter {
         initted = true;
         ctx = getInitialContext();
       }
-
+      if (ctx == null) {
+          handleError ("JtJNDIAdapter: unable to get initial context");
+          return (null);
+      }
+      
       objref = ctx.lookup (jndiName);
       
 
@@ -191,6 +197,10 @@ public class JtJNDIAdapter extends JtAdapter {
 
   private Context getInitialContext() throws Exception {
     Properties p = new Properties();
+    
+    if (factory == null)
+        return (null);
+    
     p.put(Context.INITIAL_CONTEXT_FACTORY,
           factory);
     p.put(Context.PROVIDER_URL, url);
@@ -234,7 +244,7 @@ public class JtJNDIAdapter extends JtAdapter {
 
     // Destroy the JtJNDIAdapter instance
 
-    main.removeObject ("adapter");
+    main.removeObject (adapter);
 
 
   }

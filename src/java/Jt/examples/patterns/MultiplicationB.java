@@ -1,10 +1,6 @@
 
 
 package Jt.examples.patterns;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 
 /**
@@ -14,8 +10,10 @@ import Jt.*;
 public class MultiplicationB extends JtObject {
 
 
+private static final long serialVersionUID = 1L;
 
-  public MultiplicationB () {
+
+public MultiplicationB () {
   }
 
 

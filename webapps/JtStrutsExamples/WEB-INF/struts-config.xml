@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<!--
+     This is the Struts configuration file for the Jt example application
+-->
+
+
+<struts-config>
+
+
+
+  <!-- ========== Form Bean Definitions =================================== -->
+
+  <form-beans>
+    <form-bean name="dynamicLookupForm"
+      type="org.apache.struts.action.DynaActionForm">
+      <form-property name="email" 
+        type="java.lang.String"/>
+
+      </form-bean>
+    
+  </form-beans>
+
+  <!-- ========== Global Forward Definitions ============================== -->
+
+  <global-forwards>
+    <forward name="form" path="/form.jsp" /> 
+    <forward name="bpmform" path="/bpmform.jsp" /> 
+  </global-forwards>
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+
+    <!-- Process a user email -->
+    <action    path="/HelloWorld"
+               type="Jt.struts.JtStrutsAction"
+               parameter="Jt.examples.HelloWorld"
+               scope="session">
+               <forward name="success"              path="/HelloWorld.jsp"/>
+               <forward name="failure"              path="/index.jsp"/>
+    </action>
+
+
+    <action    path="/BPMHelloWorld"
+               type="Jt.struts.JtStrutsAction"
+               parameter="/WEB-INF/processes/helloworld/processdefinition.xml"
+               scope="session">
+               <forward name="success"              path="/HelloWorld.jsp"/>
+               <forward name="failure"              path="/index.jsp"/>
+    </action>
+
+    <action    path="/BPMFindRecords"
+               type="Jt.struts.JtStrutsAction"
+               name="dynamicLookupForm"
+               parameter="/WEB-INF/processes/DAOFindRecords/processdefinition.xml"
+               scope="session">
+               <forward name="success"              path="/results.jsp"/>
+               <forward name="failure"              path="/index.jsp"/>
+    </action>
+
+    <action    path="/FindRecords"
+               type="Jt.struts.JtStrutsAction"
+               name="dynamicLookupForm"
+               parameter="Jt.examples.struts.FindRecords"
+               scope="session">
+               <forward name="success"              path="/results.jsp"/>
+               <forward name="failure"              path="/index.jsp"/>
+    </action>
+
+  </action-mappings>
+
+
+
+  <!-- ========== Controller Configuration ================================ -->
+
+
+
+  <!-- ========== Message Resources Definitions =========================== -->
+
+  <message-resources
+    parameter="Jt.struts.ApplicationResources"/>
+
+
+
+  <!-- ========== Plug Ins Configuration ================================== -->
+
+
+
+</struts-config>
+
+
+
+
+
+
+
+
+
+
+

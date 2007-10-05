@@ -1,10 +1,5 @@
 
 package Jt.examples.patterns;
-
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 import Jt.*;
 
 /**
@@ -15,6 +10,7 @@ import Jt.*;
 public class Mediator extends JtMediator {
 
 
+  private static final long serialVersionUID = 1L;
 
   public Mediator () {
   }
@@ -50,7 +46,7 @@ public class Mediator extends JtMediator {
    String msgid = null;
    JtMessage e = (JtMessage) message;
    Object content;
-   Object data;
+   //Object data;
    JtMessage tmp;
    JtObject colleague;
 
@@ -63,7 +59,7 @@ public class Mediator extends JtMediator {
 	return null;
 
      content = e.getMsgContent();
-     data = e.getMsgData ();
+     //data = e.getMsgData ();
 
      // Remove this object
 

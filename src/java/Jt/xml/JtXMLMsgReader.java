@@ -1,9 +1,6 @@
 
 
 package Jt.xml;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
 import java.io.*;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
@@ -16,6 +13,8 @@ import Jt.*;
 
 public class JtXMLMsgReader extends JtObject 
     implements ContentHandler {
+
+  private static final long serialVersionUID = 1L;
   private XMLReader reader = null;
   protected static final String DEFAULT_PARSER_NAME = "org.apache.xerces.parsers.SAXParser";
   private String uri;
@@ -224,7 +223,7 @@ public class JtXMLMsgReader extends JtObject
   }
 
   // realize
-  public  void realize () {
+  public  void realizeObject () {
 
      if (reader != null)
        return;
@@ -247,7 +246,7 @@ public class JtXMLMsgReader extends JtObject
     JtMessage msg = new JtMessage ("JtCONVERT_OBJECT_TO_XML");
  
     if (reader == null)
-      realize ();
+      realizeObject ();
 
     if (uri == null && string == null) {
       handleError ("JtXMLMsgReader.parse: both uri and string are null");
@@ -286,7 +285,7 @@ public class JtXMLMsgReader extends JtObject
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
 
      if (e == null)
 	return null;
@@ -319,8 +318,8 @@ public class JtXMLMsgReader extends JtObject
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg, msg1;
-    Integer count;
+    //JtMessage msg, msg1;
+    //Integer count;
     String str;
 
     main.setObjTrace (1);
@@ -336,7 +335,7 @@ public class JtXMLMsgReader extends JtObject
 
     main.createObject ("Jt.xml.JtXMLMsgReader", "reader");
 
-    msg = (JtMessage) main.createObject ("Jt.JtMessage", "message");
+    main.createObject ("Jt.JtMessage", "message");
     main.setValue ("message", "msgId", "JtPARSE");
     main.setValue ("reader", "uri", args[0]);
 

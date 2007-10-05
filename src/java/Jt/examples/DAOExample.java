@@ -1,11 +1,7 @@
 package Jt.examples;
 
 import Jt.*;
-import Jt.xml.*;
-
-
 import java.util.*;
-import java.text.*;
 import java.io.*;
 
 
@@ -15,6 +11,8 @@ import java.io.*;
   */
 
 public class DAOExample extends JtDAO   {
+
+private static final long serialVersionUID = 1L;
 private String email;
 private String name;
 private int status;
@@ -70,7 +68,7 @@ private boolean booleanv;
 
   // ConfigFileExist - Verify if the configuration
   //                   file exists
-
+/*
   private boolean configFileExists (String configFile) {
 
     String fname;
@@ -85,8 +83,8 @@ private boolean booleanv;
     file = new File (fname);
     return (file.exists ());
   }
-
-  public void realize () {
+*/
+  public void realizeObject () {
 
     JtMessage msg;
 
@@ -128,8 +126,8 @@ private boolean booleanv;
   // processMessageEvent: process messages
 
   public Object processMessage (Object event) {
-  String content;
-  String query;
+  //String content;
+  //String query;
   JtMessage e = (JtMessage) event;
 
 
@@ -142,7 +140,7 @@ private boolean booleanv;
 
     if (e.getMsgId().equals("JtREALIZE")) {
         super.processMessage (new JtMessage ("JtREALIZE"));
-	realize ();
+	    realizeObject ();
         return (null);
     }
 
@@ -156,10 +154,10 @@ private boolean booleanv;
 
     JtObject main = new JtObject ();
     JtMessage msg = new JtMessage ();
-    Date date = new Date ();
+    //Date date = new Date ();
     DAOExample tmp, member;
     Exception ex;
-    Object tmp1;
+    //Object tmp1;
     File file;
 
     // Create DAO object

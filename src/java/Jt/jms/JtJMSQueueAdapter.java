@@ -3,10 +3,8 @@
 package Jt.jms;
 
 import Jt.*;
-import java.io.*;
 import Jt.jndi.*;
 import javax.jms.*;
-import javax.naming.*;
 
 /**
  * Jt Adapter for the JMS point-to-point API. 
@@ -14,6 +12,8 @@ import javax.naming.*;
 
 public class JtJMSQueueAdapter extends JtAdapter implements MessageListener {
 
+
+  private static final long serialVersionUID = 1L;
   private String queue;
   private String connectionFactory;
   private long timeout = 1L; // Receives the next message within the timeout interval
@@ -120,8 +120,8 @@ public class JtJMSQueueAdapter extends JtAdapter implements MessageListener {
     */
 
   public Object processMessage (Object message) {
-  String content;
-  String query;
+  //String content;
+  //String query;
   JtMessage e = (JtMessage) message;
   Object reply;
   JtMessage msg;
@@ -325,7 +325,7 @@ public class JtJMSQueueAdapter extends JtAdapter implements MessageListener {
 
   private Object testReceiver () {
     String reply = "PASS";
-    ObjectMessage message;
+    //ObjectMessage message;
     JtMessage msg;
 
  
@@ -437,9 +437,9 @@ public class JtJMSQueueAdapter extends JtAdapter implements MessageListener {
 
 
   private Object testSender () {
-    String reply = "PASS";
-    TextMessage message;
-    ObjectMessage omsg;
+    //String reply = "PASS";
+    //TextMessage message;
+    //ObjectMessage omsg;
     JtMessage msg = new JtMessage ("JtHELLO");
     JtMessage wrapper = new JtMessage ("JtSEND");
 

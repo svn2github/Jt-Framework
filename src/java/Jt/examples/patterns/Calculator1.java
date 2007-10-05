@@ -2,10 +2,6 @@
 package Jt.examples.patterns;
 
 import Jt.*;
-import java.io.*;
-import java.util.*;
-import Jt.xml.*;
-import java.beans.*;
 
 /**
  * Calculator implementation based on Command and Memento.
@@ -16,6 +12,8 @@ import java.beans.*;
 
 public class Calculator1 extends JtCommand {
 
+
+  private static final long serialVersionUID = 1L;
   transient Object state = null;        // Object state
   private int total = 0;                // Calculator Total
   private JtMemento memento = null;     // Contains the state of the object
@@ -184,7 +182,7 @@ public class Calculator1 extends JtCommand {
   public static void main(String[] args) {
 
     JtObject main = new JtFactory ();
-    JtMessage msg, msg1;
+    JtMessage msg;
     Object total;
     JtKeyboard keyboard;
     String input;    
@@ -251,7 +249,7 @@ public class Calculator1 extends JtCommand {
 
     // Remove object
 
-    main.removeObject ("calculator");        
+    main.removeObject (calculator);        
 
   }
 

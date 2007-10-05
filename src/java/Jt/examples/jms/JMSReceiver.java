@@ -1,8 +1,7 @@
 package Jt.examples.jms;
 
 import Jt.*;
-import Jt.jms.*;
-import java.io.*;
+
 
 
 // Demonstrates the use of JtJMSQueueAdapter (synchronous mode).
@@ -18,8 +17,8 @@ public class JMSReceiver  {
 
     JtFactory main = new JtFactory ();  // Jt Factory
     JtMessage msg;
-    String greeting;
-    String reply;
+    //String greeting;
+    //String reply;
     Jt.jms.JtJMSQueueAdapter jmsAdapter;
 
 
