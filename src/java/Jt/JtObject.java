@@ -6,6 +6,8 @@ import java.util.*;
 import java.text.*;
 import java.lang.reflect.*;
 import java.beans.*;
+import org.jbpm.graph.def.ActionHandler;
+import org.jbpm.graph.exe.ExecutionContext;
 
 
 
@@ -15,43 +17,53 @@ import java.beans.*;
   */
 
 
-public class JtObject implements Serializable, JtInterface {
+public class JtObject implements Serializable, JtInterface, ActionHandler {
 
-   private static String version = "1.5 - 11/01/06";    // Framework version
-   private Hashtable objTable = null;			// Children of this object
-   private static Hashtable resTable = null;            // Attribute values
-   private static int initted = 0;
-   private static int log = 0;
-   private static String logFile = null;                // Log file
-   private static PrintWriter logStream = null;
-   private static String resourceFile = ".Jtrc";        // Resource file
-   private String objName = null;			// Qualified object name
+   private static final long serialVersionUID = 1L;
+   public static final String RESOURCE_FILE = ".Jtrc";  // Resource file
+   public static final String WEB_RESOURCE_PATH = "/WEB-INF/.Jtrc";  // Resource path (web application)
+   
+   private String objName = null;			            // Qualified object name
    private int objTrace = 0;                            // Enable/disable trace messages
    private Object objException;	                        // Exception
-   private int objStatus = 0;				// Status
+   private int objStatus = 0;				            // Status
+
+   private Hashtable objTable = null;                   // Children of this object
+   private static Hashtable resTable = null;            // Attribute values
+
+   // Context attributes
+   
+   private static String version = "1.7 - 09/12/07";    // Framework version
+   private static boolean initted = false;              // The framework has been initialized?
+   private static boolean logging = false;              // is logging enabled?
+   private static String logFile = null;                // Log file
+   private static PrintWriter logStream = null;
+   private static String resourceFile = RESOURCE_FILE;  // Jt Resource file
+   private static InputStream resourceStream = null;
 
    // The following attributes are being deprecated or changed
-   private long objId;					// ID
-   private String objStore = ".Jt";			// Directory where the
-							// object should
-							// be stored
+   private long objId;					    // ID
+   //private String objStore = ".Jt";	    // Directory where the
+							                // object should
+							                // be stored
 
    private String objPath = null;
 
 
-   
-
+  
    public JtObject () {
 
-	//objId = id++;
+       // Initialize the framework
 
-        if (initted == 0) {
+       if (!initted) {
            initialize ();
-           initted = 1;
-        }
-	if (log == 1)
+           initted = true;
+       }
+
+       loadObjectResources (this, this.getClass().getName());
+       if (logging)
            setObjTrace (1);
-    } 
+   } 
 
 
    /**
@@ -65,91 +77,85 @@ public class JtObject implements Serializable, JtInterface {
     */
 
    public Object createObject (Object class_name, Object id) {
-      Object obj, tmp = null;
-      Class jtclass;
-	
-
-	handleTrace ("JtObject.createObject:" + class_name + "," + id);
-
-	if (class_name == null || id == null) {
-	   handleError ("JtObject.createObject: invalid paramenters");
-	   return (null);
-	}
+       Object obj, tmp = null;
+       Class jtclass;
 
 
-/*
-        if (objTable == null)
-          objTable = new Hashtable ();
-*/
+       handleTrace ("JtObject.createObject:" + class_name + "," + id);
 
-	obj = lookupObject (id);
+       if (class_name == null || id == null) {
+           handleError ("JtObject.createObject: invalid paramenters");
+           return (null);
+       }
 
-	// check for duplicates
-	if (obj != null) {
-           if (log == 0)
-	     handleWarning 
-		("JtObject.createObject: unable to create a duplicate entry " + id);
+       obj = lookupObject (id);
+
+       // check for duplicates
+       if (obj != null) {
+           if (!logging)
+               handleWarning 
+               ("JtObject.createObject: unable to create a duplicate entry " + id);
            else
-	     handleError 
-		("JtObject.createObject: unable to create a duplicate entry " + id);
-	   return (null);
-	}
+               handleError 
+               ("JtObject.createObject: unable to create a duplicate entry " + id);
+           return (null);
+       }
 
-	try {
-	   jtclass = Class.forName ((String) class_name);
-	} catch (Exception e) {
-	   handleException (e);
-	   return (null);
-	}
+       try {
+           jtclass = Class.forName ((String) class_name);
+       } catch (Exception e) {
+           handleException (e);
+           return (null);
+       }
 
-	// Create a new instance of the object
+       // Create a new instance of the object
 
-        try {
+       try {
 
 
            if (JtSingleton.class.isAssignableFrom (jtclass)) {
-             obj = JtSingleton.getInstance ();
-             if (obj == null) {
-               obj = jtclass.newInstance ();
-               JtSingleton.setInstance (obj);
-               tmp = JtSingleton.getInstance ();        
-               // Although unlikely, another thread may create the Singleton instance
-               // first. In this case, an error should be produced. 
-               if (tmp != obj) {
-                 handleError 
-                 ("JtObject.createObject: attempt to create another instance of a Singleton (" +
-                 class_name + ")"); 
-                 return (null); 
+               obj = JtSingleton.getInstance ();
+               if (obj == null) {
+                   obj = jtclass.newInstance ();
+                   JtSingleton.setInstance (obj);
+                   tmp = JtSingleton.getInstance ();        
+                   // Although unlikely, another thread may create the Singleton instance
+                   // first. In this case, an error should be produced. 
+                   if (tmp != obj) {
+                       handleError 
+                       ("JtObject.createObject: attempt to create another instance of a Singleton (" +
+                               class_name + ")"); 
+                       return (null); 
+                   }
+
+
+               } else {
+                   handleError 
+                   ("JtObject.createObject: attempt to create another instance of a Singleton (" +
+                           class_name + ")"); 
+                   return (null); 
                }
-
-
-             } else {
-               handleError 
-               ("JtObject.createObject: attempt to create another instance of a Singleton (" +
-                 class_name + ")"); 
-               return (null); 
-             }
            } else
-             obj = jtclass.newInstance ();
+               obj = jtclass.newInstance ();
 
            if (obj instanceof JtObject) {
-           ((JtObject)obj).setObjName (absolute_name ((String) id));
-	   if (log == 1)
-              ((JtObject)obj).setObjTrace (1);
-	   else
-              ((JtObject)obj).setObjTrace (this.getObjTrace ());
+               ((JtObject)obj).setObjName (absolute_name ((String) id));
+               if (logging)
+                   ((JtObject)obj).setObjTrace (1);
+               else
+                   ((JtObject)obj).setObjTrace (this.getObjTrace ());
            }
 
            // ((JtObject)obj).setObjSession (this.getObjSession ());
-	   // add the new object to the object table
+           // add the new object to the object table
            add (absolute_name ((String) id), obj);
-           load_object_resources (obj, class_name);
-         } catch (Exception e) {
-            handleException (e);
-	 }
+           //loadObjectResources (obj, class_name);
+       } catch (Exception e) {
+           handleException (e);
+       }
 
 
-	 return (obj);
+       return (obj);
    }
 
 
@@ -208,34 +214,23 @@ public class JtObject implements Serializable, JtInterface {
     */
 
    public Object lookupObject (Object id) {
-     String obj_id;
-     Hashtable ht;
+       String obj_id;
 
-        if (!id.getClass().getName().equals ("java.lang.String"))
-        	return (id); // check
 
-	
-	obj_id = absolute_name ((String) id);
+       if (!id.getClass().getName().equals ("java.lang.String"))
+           return (id); // check
 
-//        if (objSession == null) {
 
-          if (objTable == null)
-            return (null);
+       obj_id = absolute_name ((String) id);
 
-	  return (objTable.get (obj_id));
-//        }
 
-/*
-        if (sessionTable == null)
-          return (null);
 
-        ht = (Hashtable) sessionTable.get (objSession);
+       if (objTable == null)
+           return (null);
 
-        if (ht == null) 
-          return (null);
-        
-        return (ht.get (obj_id));
-*/
+       return (objTable.get (obj_id));
+
+
    }
 
 
@@ -283,10 +278,10 @@ public class JtObject implements Serializable, JtInterface {
   }
 
   private Object copyObject (Object obj, Object target) {
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
-   Class p;
-   Method m;
+   //Class p;
+   //Method m;
    BeanInfo info = null;
    Object value, svalue = null;
    int i;
@@ -484,7 +479,7 @@ public class JtObject implements Serializable, JtInterface {
    public Object getValue (Object id, Object att) {
    Object obj;
    Method m;
-   Class p;
+   //Class p;
    BeanInfo info = null;
    PropertyDescriptor[] prop;
    int i;
@@ -588,10 +583,10 @@ public class JtObject implements Serializable, JtInterface {
 
   
    public void destroyObject (Object id) {
-      Object obj;
-        handleWarning 
+      //Object obj;
+      handleWarning 
           ("JtObject.destroyObject has been deprecated. Please use removeObject");
-        removeObject (id);
+      removeObject (id);
 
 /*
 	handleTrace ("JtObject.destroyObject: " + id);
@@ -765,9 +760,9 @@ public class JtObject implements Serializable, JtInterface {
 
 
 
-   // handle_message_trace: 
+   // handleMessageTrace 
 
-   private void handle_message_trace (JtMessage msg) {
+   private void handleMessageTrace (JtMessage msg) {
 
         String nl = System.getProperty("line.separator");
 	String tmp;
@@ -838,7 +833,7 @@ public class JtObject implements Serializable, JtInterface {
      }
     
      if (msg instanceof JtMessage) 
-	handle_message_trace ((JtMessage) msg);
+	handleMessageTrace ((JtMessage) msg);
 
      // If the recipient object is running in a separate/independent thread,
      // enqueue the message (Asynchronuos processing)
@@ -1025,24 +1020,42 @@ public class JtObject implements Serializable, JtInterface {
 
    void initialize () {
 
-      String rfile;
+      String rfile = null;
+      String jtHome = null;
+      String separator = System.getProperty ("file.separator");
+      //String tmp;
 
       logFile = System.getProperty ("Log");
-      rfile = System.getProperty ("Resources");
+      // rfile = System.getProperty ("Resources");
+      //jtHome = System.getenv ("Home");
+      jtHome = System.getProperty ("Home");
 
-      if (rfile != null)
-        setResourceFile (rfile);
+      if (jtHome != null) {
+        rfile = jtHome + separator + RESOURCE_FILE;
+      } else
+        rfile = RESOURCE_FILE;
+
+
 
       if (logFile != null) {
-	log = 1; // show debugging messages
-	this.setObjTrace (1); 
+	    logging = true; // show debugging messages
+	    this.setObjTrace (1); 
         open_logfile (); 
       }
       //if (logFile != null)
         //open_logfile ();
 
       handleTrace ("Initializing Jt " + version + "...");
-      load_resources ();
+      if (jtHome != null)
+        handleTrace ("Home property has been set:" + jtHome);
+      else
+        handleTrace 
+         ("Home property hasn't been set. Using the current directory as the default.");
+
+      if (rfile != null)
+        setResourceFile (rfile);
+
+      //loadResourceFile ();
 	
    }
 
@@ -1162,7 +1175,7 @@ public class JtObject implements Serializable, JtInterface {
    private void add (String id, Object obj) {
    //private synchronized void add (String id, Object obj) {
 
-     Hashtable ht;
+    //Hashtable ht;
 
 	if (id == null || obj == null)
 	   return;
@@ -1201,7 +1214,7 @@ public class JtObject implements Serializable, JtInterface {
    //private synchronized Object remove (String id) {
    private Object remove (Object id) {
 
-     Hashtable ht;
+    //Hashtable ht;
 
 	if (id == null)
 	   return (null);
@@ -1258,15 +1271,32 @@ public class JtObject implements Serializable, JtInterface {
 
     logFile = newLogFile;
 
-    log = 1;
+    logging = true;
     this.setObjTrace (1);
     if (logFile != null)
       open_logfile ();
 
    }
 
+   /** 
+    * Returns the logging boolean.
+    */
+
+   public boolean getLogging() {
+       return logging;
+   }
 
    /** 
+    * Specifies whether or not logging is enabled.
+    * @param logging
+    */
+   
+   public void setLogging(boolean logging) {
+       JtObject.logging = logging;
+   }
+
+
+/** 
      * Gets the name of the Jt resource file. The default value for this attribute is '.Jtrc'.
      * Attribute values are loaded from this resource file just after the object is created.
      */
@@ -1278,7 +1308,7 @@ public class JtObject implements Serializable, JtInterface {
 
    /** 
      * Specifies the file to be used as the Jt resource file. The default value for this attribute is '.Jtrc'.
-     * Attribute values are loaded from this resource file just after the object is created.
+     * Attribute values are loaded from this resource file after the object is created.
      * @param newResourceFile Jt resource file
      */
 
@@ -1286,9 +1316,29 @@ public class JtObject implements Serializable, JtInterface {
     resourceFile = newResourceFile;
 
     if (resourceFile != null)
-      load_resources ();
+      loadResourceFile ();  // check
 
    }
+
+   /** 
+    * Returns the resource input stream
+    */
+   public InputStream getResourceStream() {
+    return resourceStream;
+   }
+
+   /** 
+    * Specifies the resource input stream
+    */
+   
+    public void setResourceStream(InputStream resourceStream) {
+      JtObject.resourceStream = resourceStream;
+      if (resTable != null) {
+          handleTrace ("Jt Resources have been loaded already. ");
+          return;
+      }
+      loadResourcesFromStream (resourceStream);
+    }
 
 
    /** 
@@ -1441,7 +1491,8 @@ public class JtObject implements Serializable, JtInterface {
 
   JtResource parse_resource (String line) {
 
-    String resource_class, tmp;
+    //String resource_class 
+    String tmp;
     int index;
     int length;
     JtResource res;
@@ -1487,7 +1538,7 @@ public class JtObject implements Serializable, JtInterface {
 
   }
 
-  private void load_object_resources (Object obj,
+  private void loadObjectResources (Object obj,
     Object class_name) {
 
     Hashtable ht;
@@ -1496,7 +1547,8 @@ public class JtObject implements Serializable, JtInterface {
 
  
     if (resTable == null)
-      resTable = new Hashtable ();
+       return; 
+      //resTable = new Hashtable ();
 
     if (obj == null || class_name == null)
        return;
@@ -1517,6 +1569,7 @@ public class JtObject implements Serializable, JtInterface {
     }
     handleTrace ("Jt: Loaded Jt resources");
   }
+
 
   private void update_resources (JtResource res) {
     Hashtable ht;
@@ -1542,7 +1595,41 @@ public class JtObject implements Serializable, JtInterface {
     ht.put (res.name, res.value);
   }
     
-  void load_resources ( ) {
+  // Load resources from a stream
+  
+  private void loadResourcesFromStream (InputStream resourceStream) {
+      String line;
+      JtResource res;
+
+      if (resourceStream == null)
+          return;
+
+
+      handleTrace ("Jt: reading resources from stream" + " ...");
+
+      try {
+          BufferedReader d = new BufferedReader 
+          (new InputStreamReader (resourceStream));
+
+          while ((line  = d.readLine ()) != null) {
+
+              if (line.startsWith ("!") || 
+                      line.startsWith ("//"))
+                  continue;
+              res = parse_resource (line);
+
+              if (res != null)
+                  update_resources (res);
+          }
+
+      } catch (Exception ex) {
+          handleException (ex);
+      }
+  } 
+
+  // Load resources from a file
+  
+  private void loadResourceFile ( ) {
     String line;
     JtResource res;
     File file;
@@ -1552,8 +1639,10 @@ public class JtObject implements Serializable, JtInterface {
 
     file = new File (resourceFile);
 
-    if (!file.exists ())
+    if (!file.exists ()) {
+      handleTrace ("Resource file not found:" + resourceFile);
       return;
+    }
 
     handleTrace ("Jt: reading resources from " +
      resourceFile + " ...");
@@ -1577,6 +1666,30 @@ public class JtObject implements Serializable, JtInterface {
     }
   }
 
+  /*
+   * Jt hook for the JBPM api. Defines a jBPM variable that points to the Jt object.
+   * It uses the name of the action (jBPM process diagram) as the name of the variable. 
+   * @see org.jbpm.graph.def.ActionHandler#execute(org.jbpm.graph.exe.ExecutionContext)
+   */
+  public void execute(ExecutionContext context) throws Exception {
+    //String reply;
+    //JtMessage msg;
+    String name, nodeName;
+
+    try {
+      nodeName = context.getContextInstance().getProcessInstance().getRootToken().getNode().getName();
+      handleTrace ("JtObject.execute:entering node ... " + nodeName);
+      
+      name = context.getAction().getName ();
+      handleTrace ("JtObject.execute:creating a Jbpm variable " + name);
+      context.getContextInstance().setVariable (name, this);	
+    } catch (Exception ex) {
+      handleException (ex);
+      return;
+    } 	
+    //loadObjectResources (this, this.getClass().getName());
+  }
+
   /**
    * Unit tests the messages processed by JtObject
    */
@@ -1586,11 +1699,10 @@ public class JtObject implements Serializable, JtInterface {
     JtObject main = new JtObject ();
     JtMessage msg;
     String tmp;
-    JtObject main1;
+    //JtObject main1;
 
     //main.setObjTrace (1);
-    //main.setResourceFile (".Jtrc1");
-    //main.setLogFile ("log.txt");
+    //main.setLogging (true);
 
 
     // Create the object
