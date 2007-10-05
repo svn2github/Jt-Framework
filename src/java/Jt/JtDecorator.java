@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Decorator pattern.
@@ -12,6 +9,8 @@ import java.io.*;
 
 public class JtDecorator extends JtObject {
 
+
+  private static final long serialVersionUID = 1L;
   private Object component = null;
  
 
@@ -48,31 +47,31 @@ public class JtDecorator extends JtObject {
 
   public Object processMessage (Object event) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+      String msgid = null;
+      JtMessage e = (JtMessage) event;
+      //Object content;
+      //Object data;
 
 
-     if (e == null)
-	return null;
+      if (e == null)
+          return null;
 
-     msgid = (String) e.getMsgId ();
+      msgid = (String) e.getMsgId ();
 
-     if (msgid == null)
-	return null;
+      if (msgid == null)
+          return null;
 
-     content = e.getMsgContent();
-     //data = e.getMsgData ();
-
-
-     if (msgid.equals ("JtREMOVE")) {
-       return (super.processMessage (null));     
-     }
+      //content = e.getMsgContent();
+      //data = e.getMsgData ();
 
 
-     handleError ("JtDecortator.processMessage: invalid message id:" + msgid);
-     return (null);
+      if (msgid.equals ("JtREMOVE")) {
+          return (this);     
+      }
+
+
+      handleError ("JtDecortator.processMessage: invalid message id:" + msgid);
+      return (null);
 
   }
 
@@ -95,9 +94,9 @@ public class JtDecorator extends JtObject {
 
     decorator = (JtDecorator) factory.createObject ("Jt.JtDecorator", "decorator");
 
-    System.out.println (decorator);
+    //System.out.println (decorator);
 
-    factory.removeObject ("decorator");
+    factory.removeObject (decorator);
 
 
   }

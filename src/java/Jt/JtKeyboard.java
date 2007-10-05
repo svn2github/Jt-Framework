@@ -1,8 +1,6 @@
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
+
 import java.io.*;
 
 /**
@@ -13,11 +11,31 @@ import java.io.*;
 
 public class JtKeyboard extends JtObject {
 
+
+  private static final long serialVersionUID = 1L;
   String command = null;
   Process process = null;
   int status = 0;
   String stdout;
   String line = null;
+  String prompt;
+
+
+/**
+  * Specifies a prompt.
+  */
+
+  public void setPrompt (String prompt) {
+     this.prompt = prompt;
+  }
+
+/**
+  * Returns the prompt.
+  */
+
+  public String getPrompt () {
+     return (prompt);
+  }
 
   private byte readln ()[] throws IOException {
   byte buffer[] ;
@@ -31,14 +49,20 @@ public class JtKeyboard extends JtObject {
 	while ((ch = (byte) System.in.read ()) >= 0) {
 	    if (i >= 1024)
 		break;	
-	    buffer[i++] = ch;	       
-	    if (ch == '\n')
-		break;
+
+
+	    buffer[i++] = ch;	
+	    if (ch == '\n') // check
+		break;       
+
 	}
         if (i == 0)
           line = null;
         else
           line = new String (buffer, 0, i);
+
+        if (line != null)
+          line = line.trim (); // check
         //System.out.println ("Line:" + i + ":" + line); 
 	return buffer;
 
@@ -49,10 +73,14 @@ public class JtKeyboard extends JtObject {
   // activate: activate
 
   void activate () {
-  byte buffer[];
+  //byte buffer[];
+
+    if (prompt != null)
+      System.out.print (prompt);
 
     try {
-      buffer = readln ();
+      readln ();  
+      //buffer = readln ();
     } catch (IOException ex) {
       handleException (ex);
       //line = null;
@@ -60,6 +88,7 @@ public class JtKeyboard extends JtObject {
     }
     //line = new String (buffer);
     //System.out.println ("Line:" + line);    
+
   }
 
 
@@ -73,8 +102,8 @@ public class JtKeyboard extends JtObject {
   public Object processMessage (Object message) {
 
    String msgid = null;
-   byte buffer[];
-   File file;
+   //byte buffer[];
+   //File file;
    JtMessage e = (JtMessage) message;
 
      if (e == null)
@@ -116,7 +145,8 @@ public class JtKeyboard extends JtObject {
 
     main.createObject ("Jt.JtKeyboard", "keyboard");
     msg = new JtMessage ("JtACTIVATE");
-    System.out.println ("Press any key to continue ...");
+    //System.out.println ("Press any key to continue ...");
+    main.setValue ("keyboard", "prompt", "Press any key to continue ...");
     oline = (String) main.sendMessage ("keyboard", msg);
     System.out.println ("Keyboard input:" + oline);
     main.removeObject ("keyboard");

@@ -2,17 +2,17 @@
 
 package Jt;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Handles collections of objects.
  */
 
 public class JtCollection extends JtObject {
-//  private  Hashtable col = null;// Object table
-  private HashMap col = null;
+
+
+  private static final long serialVersionUID = 1L;
+  private HashMap collection = null;
   private int size = 0; 
 
 
@@ -20,11 +20,31 @@ public class JtCollection extends JtObject {
   }
 
   /**
+   * Returns the Java Collection.
+   */ 
+  
+  public Collection getCollection() {
+    if (collection != null)  
+      return collection.values();
+    else
+      return (null);
+  }
+
+  /**
+   * Void operation.
+   */
+
+  public void setCollection (Collection collection) {
+  // void operation
+  } 
+  
+  
+  /**
     * Void operation.
     */
 
   public void setSize (int size) {
-     this.size = this.size; // void operation
+  // void operation
   }
 
   /**
@@ -36,7 +56,7 @@ public class JtCollection extends JtObject {
   }
 
   /**
-   * Returns a JtIterartor over the collection. 
+   * Returns a JtIterator over the collection. 
    */
 
   public Object getIterator () {
@@ -45,10 +65,10 @@ public class JtCollection extends JtObject {
 
      jit = new JtIterator ();
      
-     if (col == null)
+     if (collection == null)
        return (null);
 
-     values = col.values ();
+     values = collection.values ();
 
      if (values == null)
        return (null);
@@ -67,10 +87,10 @@ public class JtCollection extends JtObject {
     Collection values;
     Iterator it;
 
-    if (msg == null || col == null)
+    if (msg == null || collection == null)
       return;
 
-    values = col.values ();
+    values = collection.values ();
     if (values == null)
       return;
     it = values.iterator ();
@@ -97,7 +117,7 @@ public class JtCollection extends JtObject {
    String msgid = null;
    JtMessage e = (JtMessage) event;
    Object content;
-   Object data;
+   //Object data;
 
 
      if (e == null)
@@ -113,7 +133,9 @@ public class JtCollection extends JtObject {
 
      // Destroy this object
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       size = 0;
+       collection.clear ();
+       return (this);     
      }
 
      if (msgid.equals ("JtCOLLECTION_ADD") || msgid.equals ("JtADD")) {
@@ -125,12 +147,12 @@ public class JtCollection extends JtObject {
           return (this);
 
         }
-        if (col == null)
-          col = new HashMap ();
+        if (collection == null)
+          collection = new HashMap ();
 //        col = new Hashtable ();
         
         size++;
-        col.put (content, content);        
+        collection.put (content, content);        
         return (this);
      }     
 
@@ -141,19 +163,19 @@ public class JtCollection extends JtObject {
 
         if (content == null)
           return (this);
-        if (col == null)
-          col = new HashMap ();
+        if (collection == null)
+          collection = new HashMap ();
 //        col = new Hashtable ();
         
         size++;
-        col.put (content, content);        
+        collection.put (content, content);        
         return (this);
      }
 
      if (msgid.equals ("JtCLEAR")) {
      
-       if (col != null) {
-         col.clear ();
+       if (collection != null) {
+         collection.clear ();
        }
        size = 0;
 
@@ -165,7 +187,7 @@ public class JtCollection extends JtObject {
 
      if (msgid.equals ("JtBROADCAST")) {
      
-       if (col == null) {
+       if (collection == null) {
          return (this);
        }
 

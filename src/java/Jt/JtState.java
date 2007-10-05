@@ -1,10 +1,6 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 
 /**
  * Jt Implementation of the State pattern.
@@ -13,6 +9,7 @@ import java.io.*;
 public class JtState extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
   private Object state;
 
 
@@ -49,8 +46,8 @@ public class JtState extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -61,14 +58,14 @@ public class JtState extends JtObject {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
      //data = e.getMsgData ();
 
      //return (super.processMessage (event));
 
 
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       return (this);     
      }
 
 

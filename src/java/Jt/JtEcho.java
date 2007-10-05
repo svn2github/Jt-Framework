@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Echo the message received using XML format.
@@ -13,59 +10,59 @@ import java.io.*;
 public class JtEcho extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
+
 
   public JtEcho() {
   }
 
 
-
-
   /**
-    * Process object messages (echoes the message using XML format).
-    * <ul>
-    * </ul>
-    */
+   * Process object messages (echoes the message using XML format).
+   * <ul>
+   * </ul>
+   */
 
   public Object processMessage (Object event) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+      String msgid = null;
+      JtMessage e = (JtMessage) event;
+      //Object content;
+      //Object data;
 
 
-     if (e == null)
-	return null;
+      if (e == null)
+          return null;
 
-     msgid = (String) e.getMsgId ();
+      msgid = (String) e.getMsgId ();
 
-     if (msgid == null)
-	return null;
+      if (msgid == null)
+          return null;
 
-     content = e.getMsgContent();
-     //data = e.getMsgData ();
-     System.out.println ("JtEcho("+ this.getObjName() +  "):received a message:" 
-     + msgid + "...");
+      //content = e.getMsgContent();
+      //data = e.getMsgData ();
+      System.out.println ("JtEcho("+ this.getObjName() +  "):received a message:" 
+              + msgid + "...");
 
-     e.processMessage (new JtMessage ("JtPRINT_OBJECT"));
+      e.processMessage (new JtMessage ("JtPRINT_OBJECT"));
 
-/*
-     if (msgid.equals ("JtPRINT_OBJECT")) {
-       return (super.processMessage (this));     
-     }
-*/
-     return (this);
+      /*
+       if (msgid.equals ("JtPRINT_OBJECT")) {
+         return (super.processMessage (this));     
+       }
+       */
+      return (this);
 
-/*
+      /*
 
-     if (msgid.equals ("JtREMOVE")) {
-       return (super.processMessage (null));     
-     }
+       if (msgid.equals ("JtREMOVE")) {
+         return (super.processMessage (null));     
+       }
 
 
-     handleError ("JtECHO.processMessage: invalid message id:" + msgid);
-     return (null);
-*/
+       handleError ("JtECHO.processMessage: invalid message id:" + msgid);
+       return (null);
+       */
 
   }
 
@@ -85,7 +82,6 @@ public class JtEcho extends JtObject {
     echo = (JtEcho) main.createObject ("Jt.JtEcho", "echo");
 
     main.sendMessage (echo, new JtMessage ("JtTEST"));
-
 
     //main.removeObject ("echo");
 

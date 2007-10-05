@@ -1,7 +1,6 @@
 
 
 package Jt;
-import java.io.*;
 import java.sql.*;
 import java.text.*;
 import java.lang.reflect.*;
@@ -14,12 +13,14 @@ import java.util.*;
   */
 
 public class JtDAO extends JtObject  {
-  private String user;
-  private String password;
-  private String url;
-  private String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
+
+  private static final long serialVersionUID = 1L;
+  //private String user;
+  //private String password;
+  //private String url;
+  //private String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
   private transient Connection connection = null;
-  private String base;
+  //private String base;
   //private Object reply_to;
   int n = 0;
   JtObject db = null;  
@@ -104,8 +105,8 @@ public class JtDAO extends JtObject  {
     */
 
   public Object processMessage (Object event) {
-  String content;
-  String query;
+  //String content;
+  //String query;
   JtMessage e = (JtMessage) event;
   Object reply;
 
@@ -177,6 +178,10 @@ public class JtDAO extends JtObject  {
       
       if (e.getMsgId().equals("JtCLOSE_CONNECTION")) {
         return (closeConnection ());
+      }
+
+      if (e.getMsgId().equals("JtFIND_RECORDS")) {
+        return (findRecords ((String) e.getMsgContent ()));
       }
 
       if (e.getMsgId().equals("JtREMOVE")) {
@@ -272,7 +277,7 @@ public class JtDAO extends JtObject  {
   private String build_delete_query () {
     StringBuffer query = new StringBuffer ();
     Object value;
-    Object tmp;
+    //Object tmp;
     String key_column;
 
     if (attr == null)
@@ -420,7 +425,7 @@ public class JtDAO extends JtObject  {
 
     Enumeration keys; 
     String att;
-    String value;
+    //String value;
     Object tmp;
     int i;
     java.sql.Date tmp1;
@@ -434,7 +439,7 @@ public class JtDAO extends JtObject  {
     if (attr == null)
       return;
 
-//    keys = attr.keys ();
+//  keys = attr.keys ();
     keys = map_table.keys ();
 
     i = 1;
@@ -575,10 +580,12 @@ public class JtDAO extends JtObject  {
      msg.setMsgId ("JtEXECUTE_QUERY");
      msg.setMsgContent (query);
 
+
+     res = (ResultSet) this.sendMessage (db, msg);
+
      if (propagateException (db) != null)
          return (null);
 
-     res = (ResultSet) this.sendMessage (db, msg);
 
      if (res == null)
        return (null);
@@ -604,13 +611,96 @@ public class JtDAO extends JtObject  {
   }
 
 
+  // find: find records based on a query
+
+  private JtObject findRecords (String query) {
+     JtMessage msg;
+     Object conn;
+     ResultSet res;
+     JtObject obj;
+     JtCollection col;
+
+     msg = new JtMessage ();
+     col = new JtCollection ();
+
+
+     if (db == null)
+       realize ();
+
+     attr = getAttributes (); // check
+
+     //query = build_select_query ();
+
+     if (query == null || db == null)
+       return (null);
+
+     conn = this.getValue (db, "connection");
+
+     // Connect to the data source
+
+     if (conn == null) {
+       msg.setMsgId ("JtCONNECT");
+       this.sendMessage (db, msg);
+       if (propagateException (db) != null)
+         return (null);
+     }
+
+     msg.setMsgId ("JtEXECUTE_QUERY");
+     msg.setMsgContent (query);
+
+
+     res = (ResultSet) this.sendMessage (db, msg);
+
+     if (propagateException (db) != null)
+         return (null);
+
+
+     if (res == null)
+       return (null);
+
+     msg.setMsgId ("JtADD");
+
+     try {
+
+       while (res.next()) {
+        obj = (JtObject) this.getClass().newInstance ();
+
+        ((JtDAO) obj).setKey (key);
+        ((JtDAO) obj).setTable (table);
+
+        obj = mapRow (obj, res);
+        if (obj == null)
+          continue; // check
+
+        msg.setMsgContent (obj);
+        sendMessage (col, msg);
+
+       }
+
+     } catch (Exception e) {
+       handleException (e);
+       return (null);
+     } 
+
+     try {
+       res.close ();
+     }
+     catch (Exception ex) {
+       handleException (ex);
+     }
+
+     return (col);
+  }
+
+
+
   // delete: delete record
 
   private Object delete () {
      JtMessage msg;
      String query;
      Object conn;
-     ResultSet res;
+     //ResultSet res;
      Object out;
 
      msg = new JtMessage ();
@@ -715,7 +805,7 @@ public class JtDAO extends JtObject  {
 
   private JtObject map (ResultSet rs) {
 
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
    int i;
    Class p;
@@ -757,10 +847,53 @@ public class JtDAO extends JtObject  {
      return (this);
   }
 
+  private JtObject mapRow (JtObject obj, ResultSet rs) {
+
+   //Object args[];
+   PropertyDescriptor[] prop;
+   int i;
+   Class p;
+   BeanInfo info = null;
+   String value; // check
+   String column;
+
+     try {
+
+       info = Introspector.getBeanInfo(
+              obj.getClass (), obj.getClass ().getSuperclass());
+     } catch(Exception e) {
+        handleException (e);
+        return (null);
+     }
+
+     prop = info.getPropertyDescriptors();
+     for(i = 0; i < prop.length; i++) {
+       //System.out.print ("Attribute:" + 
+            //prop[i].getName());
+       p = prop[i].getPropertyType();
+
+       column = getMapping (prop[i].getName());
+
+       if (column == null) {
+         continue;
+       }
+
+       if (p.getName().equals ("java.util.Date") ){
+         value = getRSDateValue (rs, column);
+       } else if (p.getName().equals ("boolean") ){         
+         value = getRSBooleanValue (rs, column);
+       } else // check
+         value = getRSValue (rs, column);
+
+       setValue (obj, prop[i].getName(), value);     
+ 
+     }
+     return (obj);
+  }
 
   private void clear () {
 
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
    int i;
    BeanInfo info = null;
@@ -1028,10 +1161,10 @@ public class JtDAO extends JtObject  {
   }
   private Hashtable getAttributes () {
 
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
    int i;
-   Class p;
+   //Class p;
    Method m;
    BeanInfo info = null;
    Object value;
@@ -1057,7 +1190,7 @@ public class JtDAO extends JtObject  {
      for(i = 0; i < prop.length; i++) {
 //       System.out.print ("Attribute:" + 
 //            prop[i].getName());
-       p = prop[i].getPropertyType();
+       //p = prop[i].getPropertyType();
        
        try {
          m = prop[i].getReadMethod ();
@@ -1142,10 +1275,10 @@ public class JtDAO extends JtObject  {
 
   private void print () {
 
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
    int i;
-   Class p;
+   //Class p;
    Method m;
    BeanInfo info = null;
    Object value;
@@ -1164,7 +1297,7 @@ public class JtDAO extends JtObject  {
      for(i = 0; i < prop.length; i++) {
 //       System.out.print ("Attribute:" + 
 //            prop[i].getName());
-       p = prop[i].getPropertyType();
+       //p = prop[i].getPropertyType();
        
        try {
          m = prop[i].getReadMethod ();
@@ -1243,8 +1376,8 @@ public class JtDAO extends JtObject  {
       StringBuffer query = new StringBuffer ();
       String value;
       //Object tmp;
-      Enumeration keys; 
-      String att, tmp;
+      //Enumeration keys; 
+      //String att, tmp;
       String key_column;
 
       if (key == null ||  table == null)
@@ -1284,7 +1417,7 @@ public class JtDAO extends JtObject  {
      String query;
      Object conn;
      ResultSet res;
-     Object out;
+     //Object out;
      long ltmp = 0L;
      Exception ex1;
 
@@ -1335,14 +1468,14 @@ public class JtDAO extends JtObject  {
   }
   
   void realize () {
-    JtMessage msg;
+    //JtMessage msg;
 
     handleTrace ("JtDAO:realize");
 
     if (db != null)
       return;
 
-    msg = new JtMessage ();
+    //msg = new JtMessage ();
 
     db = (JtObject) this.createObject ("Jt.JtJDBCAdapter", "db");
     // this.setValue (db, "objTrace", "1"); // check
@@ -1362,7 +1495,7 @@ public class JtDAO extends JtObject  {
 
   private static void test () {
     JtObject main;
-    String query;
+    //String query;
     JtMessage msg;
 
     main = new JtObject ();

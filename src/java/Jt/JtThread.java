@@ -1,8 +1,4 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 
 
 /** 
@@ -18,6 +14,8 @@ import java.io.*;
 
 public class JtThread extends JtObject implements Runnable {
 
+
+  private static final long serialVersionUID = 1L;
   // Object states
 
   public static final int JtINACTIVE_STATE = 0; // Before start

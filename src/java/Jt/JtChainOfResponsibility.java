@@ -1,8 +1,5 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 
 /**
@@ -13,6 +10,7 @@ import java.io.*;
 public class JtChainOfResponsibility extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
   private Object successor;
 
   public JtChainOfResponsibility() {
@@ -47,36 +45,36 @@ public class JtChainOfResponsibility extends JtObject {
 
   public Object processMessage (Object event) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) event;
-   Object content;
-
- 
-     if (e == null)
-	return null;
-
-     msgid = (String) e.getMsgId ();
-
-     if (msgid == null)
-	return null;
-
-     content = e.getMsgContent();
+      String msgid = null;
+      JtMessage e = (JtMessage) event;
+      //Object content;
 
 
-     // Remove this object
-     if (msgid.equals ("JtREMOVE")) {
-       return (this);     
-     }
+      if (e == null)
+          return null;
 
-     // Unable to handle the request, let the successor process the request
+      msgid = (String) e.getMsgId ();
 
-     if (successor == null) {
-       handleError 
-        ("JtChainOfResposibility.processMessage: last in the chain was unable to process message ID:" + msgid);
-       return (null);
-     }
+      if (msgid == null)
+          return null;
 
-     return (sendMessage (successor, event));
+      //content = e.getMsgContent();
+
+
+      // Remove this object
+      if (msgid.equals ("JtREMOVE")) {
+          return (this);     
+      }
+
+      // Unable to handle the request, let the successor process the request
+
+      if (successor == null) {
+          handleError 
+          ("JtChainOfResposibility.processMessage: last in the chain was unable to process message ID:" + msgid);
+          return (null);
+      }
+
+      return (sendMessage (successor, event));
 
 
   }

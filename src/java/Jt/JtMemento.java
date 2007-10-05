@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt implementation of the Memento pattern. This class captures
@@ -15,6 +12,7 @@ import java.io.*;
 public class JtMemento extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
   private Object state = null;
 
 
@@ -53,19 +51,19 @@ public class JtMemento extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
-	return null;
+	   return null;
 
      msgid = (String) e.getMsgId ();
 
      if (msgid == null)
-	return null;
+	  return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
      //data = e.getMsgData ();
 
 
@@ -74,28 +72,28 @@ public class JtMemento extends JtObject {
      }
 
 
-     handleError ("JtDecortator.processMessage: invalid message id:" + msgid);
+     handleError ("JtMemento.processMessage: invalid message id:" + msgid);
      return (null);
 
   }
 
  
   /**
-   * Unit tests the messages processed by JtDecorator.
+   * Unit tests the messages processed by JtMemento.
    */
 
 
   public static void main(String[] args) {
 
     JtFactory factory = new JtFactory ();
-    JtDecorator decorator;
+    JtMemento memento;
  
 
-    // Create an instance of JtDecorator
+    // Create an instance of JtMemento
 
-    decorator = (JtDecorator) factory.createObject ("Jt.JtDecorator", "decorator");
+    memento = (JtMemento) factory.createObject ("Jt.JtMemento", "memento");
 
-    factory.removeObject ("decorator");
+    factory.removeObject (memento);
 
 
   }

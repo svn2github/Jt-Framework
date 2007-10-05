@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Implements a queue of objects.
@@ -12,9 +9,12 @@ import java.io.*;
 
 public class JtQueue extends JtList {
 
+
+  private static final long serialVersionUID = 1L;
+
+
   public JtQueue() {
   }
-
 
   
   private Object test () {
@@ -63,7 +63,7 @@ public class JtQueue extends JtList {
    String msgid = null;
    JtMessage e = (JtMessage) message;
    Object content;
-   Object data;
+   //Object data;
    JtMessage tmp;
 
 
@@ -125,7 +125,7 @@ public class JtQueue extends JtList {
     JtObject main = new JtObject ();
     JtQueue queue;
 
-    Object obj;
+    //Object obj;
 
 
 

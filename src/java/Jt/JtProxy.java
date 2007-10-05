@@ -1,8 +1,5 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 
 /**
@@ -13,6 +10,7 @@ import java.io.*;
 public class JtProxy extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
   private Object subject;
 
   public JtProxy() {
@@ -48,9 +46,9 @@ public class JtProxy extends JtObject {
 
   public Object processMessage (Object event) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) event;
-   Object content;
+   //String msgid = null;
+   //JtMessage e = (JtMessage) event;
+   //Object content;
 
      // Let the subject process the request
 

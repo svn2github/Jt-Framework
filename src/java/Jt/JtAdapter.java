@@ -1,8 +1,4 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 
 
 /**
@@ -62,18 +58,16 @@ abstract public class JtAdapter extends JtObject {
 
   public static void main(String[] args) {
 
-    JtObject main = new JtFactory ();
-    JtMessage msg;
+    JtFactory factory = new JtFactory ();
+    //JtMessage msg;
     JtAdapter adapter;
 
 
     // Create an instance of JtAdapter
 
     adapter = (JtAdapter)
-      main.createObject ("Jt.JtAdapter", "adapter");
-
-
-         
+      factory.createObject ("Jt.JtAdapter", "adapter");
+    factory.removeObject(adapter);    
 
   }
 

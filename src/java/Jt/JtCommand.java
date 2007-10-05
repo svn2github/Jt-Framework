@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Command pattern. This object inherits from JtThread.
@@ -13,6 +10,8 @@ import java.io.*;
  */
 
 public class JtCommand extends JtThread {
+
+  private static final long serialVersionUID = 1L;
   private JtList messageLog = new JtList ();
   private boolean synchronous = true;
 
@@ -99,8 +98,8 @@ public class JtCommand extends JtThread {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -111,7 +110,7 @@ public class JtCommand extends JtThread {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
      //data = e.getMsgData ();
 
 
@@ -134,8 +133,8 @@ public class JtCommand extends JtThread {
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg, msg1;
-    Integer count;
+    //JtMessage msg, msg1;
+    //Integer count;
     JtCommand command;
 
 

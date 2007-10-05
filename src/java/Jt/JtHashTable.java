@@ -2,9 +2,7 @@
 
 package Jt;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
   * Handles hash tables.
@@ -12,8 +10,10 @@ import java.io.*;
 
 public class JtHashTable extends JtObject {
 
+
+  private static final long serialVersionUID = 1L;
   protected HashMap hashmap = null;
-  private int size = 0; 
+  //private int size = 0; 
 
 
   public JtHashTable() {
@@ -25,7 +25,7 @@ public class JtHashTable extends JtObject {
     */
 
   public void setSize (int size) {
-     this.size = this.size; // void operation
+
   }
 
   /**
@@ -133,7 +133,9 @@ public class JtHashTable extends JtObject {
 
      // Remove this object
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       if (hashmap != null)
+           hashmap.clear();
+       return (this);     
      }
 
      if (msgid.equals ("JtPUT")) {
@@ -178,7 +180,7 @@ public class JtHashTable extends JtObject {
        if (hashmap != null) {
          hashmap.clear ();
        }
-       size = 0;
+       //size = 0;
 
        return (this);
      }
@@ -211,7 +213,7 @@ public class JtHashTable extends JtObject {
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg, msg1;
+    JtMessage msg1;
     Integer count;
 
     //main.setObjTrace (1);
@@ -223,7 +225,7 @@ public class JtHashTable extends JtObject {
     main.createObject ("Jt.JtHashTable", "hashtable");
 
 
-    msg = (JtMessage) main.createObject ("Jt.JtMessage", "message");
+    main.createObject ("Jt.JtMessage", "message");
     main.setValue ("message", "msgId", "JtPUT");
     main.setValue ("message", "msgContent", new Integer (1));
     main.setValue ("message", "msgData", "one");

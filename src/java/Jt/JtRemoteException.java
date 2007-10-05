@@ -8,6 +8,8 @@ package Jt;
 
 public class JtRemoteException extends JtException {
 
+
+   private static final long serialVersionUID = 1L;
    private String trace;
 
    public JtRemoteException () {}

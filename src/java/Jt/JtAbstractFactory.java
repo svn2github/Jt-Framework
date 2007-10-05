@@ -1,8 +1,5 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 
 /**
@@ -49,7 +46,7 @@ public abstract class JtAbstractFactory extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
 
  
      if (e == null)
@@ -58,9 +55,9 @@ public abstract class JtAbstractFactory extends JtObject {
      msgid = (String) e.getMsgId ();
 
      if (msgid == null)
-	return null;
+       return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
 
 
      // Remove this object

@@ -14,6 +14,7 @@ import java.io.*;
 public class JtValueObject extends JtHashTable {
 
 
+  private static final long serialVersionUID = 1L;
   private transient Object subject = null;
   private HashMap attributes = null;
 
@@ -107,7 +108,7 @@ public class JtValueObject extends JtHashTable {
 
   private HashMap calcValueObject () {
 
-   Object args[];
+   //Object args[];
    PropertyDescriptor[] prop;
    int i;
    Class p;
@@ -241,22 +242,22 @@ public class JtValueObject extends JtHashTable {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
+   //Object content;
 
 
      if (e == null)
-	return null;
+	   return null;
 
      msgid = (String) e.getMsgId ();
 
      if (msgid == null)
-	return null;
+	  return null;
 
      // Let the subject process the request
 
 
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       return (this);     
      }
 
      if (msgid.equals ("JtACTIVATE")) {

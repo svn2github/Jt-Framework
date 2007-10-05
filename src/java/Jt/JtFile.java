@@ -2,8 +2,6 @@
 
 package Jt;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
 import java.io.*;
 
 /**
@@ -12,6 +10,7 @@ import java.io.*;
 
 public class JtFile extends JtObject {
 
+  private static final long serialVersionUID = 1L;
   String name;
   FileOutputStream ostream = null;
   boolean createdir = true;
@@ -267,7 +266,7 @@ public class JtFile extends JtObject {
 
   void create_dir (String name) {
    File file;
-   String parentpath; 
+   //String parentpath; 
 
         if (name == null)
            return;
@@ -599,7 +598,7 @@ public class JtFile extends JtObject {
     * <li> JtCLOSE - Closes a file
     * <li> JtREAD_LINES - Reads input lines from the file, one line at a time. 
     * Each line is sent to the object specified by msgReplyTo (JtMessage object). 
-    * <li> JtREMOVE - Deletes a file or directory
+    * <li> JtDELETE - Deletes a file or directory
     * <li> JtCREATE_DIRECTORY - Creates a directory
     * <li> JtCLEANUP - Removes all the files under a directory
     * <li> JtCONVERT_TO_STRING - Converts the content of the file String
@@ -625,7 +624,7 @@ public class JtFile extends JtObject {
 
      // Remove this object
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       return (this);     
      }
 
      if (msgid.equals ("JtOPEN")) {
@@ -720,7 +719,7 @@ public class JtFile extends JtObject {
         return null;
      }
 
-     if (msgid.equals ("JtREMOVE")) {
+     if (msgid.equals ("JtDELETE")) {
         if (name == null) {
             handleError ("JtFile: Invalid attribute (name):"
                 + name);
@@ -823,9 +822,9 @@ public class JtFile extends JtObject {
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg;
+    //JtMessage msg;
     File tmp;
-    JtFile jfile;
+    //JtFile jfile;
 
     // main.setObjTrace (1);
 
@@ -835,8 +834,8 @@ public class JtFile extends JtObject {
     main.setValue ("file", "name", "JtFile");
     main.setValue ("file", "createdir", "true");
     
-    msg = (JtMessage) main.createObject ("Jt.JtMessage", "message");
-    //main.setValue ("message", "msgId", "JtREMOVE");
+    main.createObject ("Jt.JtMessage", "message");
+    //main.setValue ("message", "msgId", "JtDELETE");
     //main.sendMessage ("file", "message");
 
 
@@ -855,16 +854,16 @@ public class JtFile extends JtObject {
     else
 	System.err.println ("JtFile(JtOPEN): GO");
 
-    // JtREMOVE
+    // JtDELETE
 
-    main.setValue ("message", "msgId", "JtREMOVE");
+    main.setValue ("message", "msgId", "JtDELETE");
     main.sendMessage ("file", "message");
 
     tmp = new File ("JtFile");
     if (!tmp.exists ())
-	System.err.println ("JtFile(JtREMOVE): GO");       
+	System.err.println ("JtFile(JtDELETE): GO");       
     else {
-	System.err.println ("JtFile(JtREMOVE): FAILED");
+	System.err.println ("JtFile(JtDELETE): FAILED");
     }
 
     // createdir attribute
@@ -883,12 +882,12 @@ public class JtFile extends JtObject {
 	System.err.println ("JtFile(JtOPEN/createdir=true): GO");
 
 
-    main.setValue ("message", "msgId", "JtREMOVE");
+    main.setValue ("message", "msgId", "JtDELETE");
     main.sendMessage ("file", "message");
     if (!tmp.exists ()) 
-	System.err.println ("JtFile(JtREMOVE): GO");
+	System.err.println ("JtFile(JtDELETE): GO");
     else
-	main.handleError ("JtFile(JtREMOVE): FAILED");
+	main.handleError ("JtFile(JtDELETE): FAILED");
 
 /*
     main.setValue ("file", "name", "cleanup");

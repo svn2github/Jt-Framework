@@ -11,6 +11,8 @@ import java.io.*;
 
 public class JtMessage extends JtObject implements Serializable {
 
+
+   private static final long serialVersionUID = 1L;
    private Object msgId;
    private Object msgTo;
    private Object msgFrom;

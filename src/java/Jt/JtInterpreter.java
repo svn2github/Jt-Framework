@@ -1,8 +1,5 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 
 /**
@@ -13,6 +10,7 @@ import java.io.*;
 public class JtInterpreter extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
   private Object context = null;
 
   public JtInterpreter() {
@@ -47,34 +45,34 @@ public class JtInterpreter extends JtObject {
 
   public Object processMessage (Object event) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) event;
-   Object content;
-
- 
-     if (e == null)
-	return null;
-
-     msgid = (String) e.getMsgId ();
-
-     if (msgid == null)
-	return null;
-
-     content = e.getMsgContent();
+      String msgid = null;
+      JtMessage e = (JtMessage) event;
+      //Object content;
 
 
-     // Remove this object
-     if (msgid.equals ("JtREMOVE")) {
-       return (this);     
-     }
+      if (e == null)
+          return null;
 
-     if (msgid.equals ("JtINTERPRET")) {
-       // subclass needs to implement/process this message
-       return (this);     
-     }
+      msgid = (String) e.getMsgId ();
 
-     handleError ("processMessage: invalid message id:" + msgid);
-     return (null);
+      if (msgid == null)
+          return null;
+
+      //content = e.getMsgContent();
+
+
+      // Remove this object
+      if (msgid.equals ("JtREMOVE")) {
+          return (this);     
+      }
+
+      if (msgid.equals ("JtINTERPRET")) {
+          // subclass needs to implement/process this message
+          return (this);     
+      }
+
+      handleError ("processMessage: invalid message id:" + msgid);
+      return (null);
 
 
   }
@@ -86,7 +84,7 @@ public class JtInterpreter extends JtObject {
   public static void main(String[] args) {
 
     JtObject main = new JtFactory ();
-    JtMessage msg;
+    //JtMessage msg;
     JtInterpreter interpreter;
 
 

@@ -2,9 +2,7 @@
 
 package Jt;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
   * Iterator over the elements of a Jt collection.
@@ -12,10 +10,12 @@ import java.io.*;
 
 
 public class JtIterator extends JtObject {
+
+  private static final long serialVersionUID = 1L;
   //private  Hashtable col = null;// Object table
   //private HashMap col = null;
-  Iterator iterator;
-  JtCollection col;
+  private transient Iterator iterator;
+  //JtCollection col;
 
 
   public JtIterator() {
@@ -28,7 +28,7 @@ public class JtIterator extends JtObject {
     */
 
   public void setIterator (Iterator iterator) {
-     this.iterator = iterator; // void operation
+     this.iterator = iterator; 
   }
 
 
@@ -64,8 +64,8 @@ public class JtIterator extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -74,10 +74,10 @@ public class JtIterator extends JtObject {
      msgid = (String) e.getMsgId ();
 
      if (msgid == null)
-	return null;
+	   return null;
 
-     content = e.getMsgContent();
-     data = e.getMsgData ();
+     //content = e.getMsgContent();
+     //data = e.getMsgData ();
 
      // Remove this object
      if (msgid.equals ("JtREMOVE")) {
@@ -90,8 +90,6 @@ public class JtIterator extends JtObject {
 
      return (super.processMessage (event));          
      
-     //handleError ("JtCollection.processMessage: invalid message id:" + msgid);
-     //return (null);
 
   }
 
@@ -103,8 +101,8 @@ public class JtIterator extends JtObject {
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg, msg1;
-    Integer count;
+    JtMessage msg;
+
     JtIterator it;
     Object obj;
 

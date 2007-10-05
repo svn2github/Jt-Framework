@@ -1,10 +1,5 @@
-
-
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Factory Method pattern.
@@ -13,12 +8,28 @@ import java.io.*;
 public class JtFactory extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
 
 
   public JtFactory () {
   }
 
+  // Create an object of a specific class
+  
+  private Object create (String className) {
+    Class jtclass;
+    
+    if (className == null)
+        return (null);      
+    try {
+        jtclass = Class.forName ((String) className);
+        return (jtclass.newInstance ());
+    } catch (Exception e) {
+        handleException (e);
+        return (null);
+    }  
 
+  }
 
   /**
     * Process object messages.
@@ -29,33 +40,34 @@ public class JtFactory extends JtObject {
 
   public Object processMessage (Object event) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+      String msgid = null;
+      JtMessage e = (JtMessage) event;
+      Object content;
+      //Object data;
 
 
-     if (e == null)
-	return null;
+      if (e == null)
+          return null;
 
-     msgid = (String) e.getMsgId ();
+      msgid = (String) e.getMsgId ();
 
-     if (msgid == null)
-	return null;
+      if (msgid == null)
+          return null;
+      
+      if (msgid.equals ("JtCREATE")) {
+          content = (String) e.getMsgContent ();
+          if (content == null) {
+              handleError ("JtCREATE: invalid message. Class name is null.");
+              return (null);
+          }    
+          return (create ((String) e.getMsgContent ()));
+      }
+      
+      //content = e.getMsgContent();
+      //data = e.getMsgData ();
 
-     content = e.getMsgContent();
-     //data = e.getMsgData ();
+      return (super.processMessage (event)); 
 
-     return (super.processMessage (event)); 
-/*
-     if (msgid.equals ("JtREMOVE")) {
-       return (super.processMessage (null));     
-     }
-
-
-     handleError ("JtFactory.processMessage: invalid message id:" + msgid);
-     return (null);
-*/
 
   }
 

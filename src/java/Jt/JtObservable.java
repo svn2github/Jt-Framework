@@ -1,16 +1,15 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 
 /**
  * Jt implementation of the Observer pattern.
  */
 
 public class JtObservable extends JtComposite {
+
+
+  private static final long serialVersionUID = 1L;
 
 
   public JtObservable () {
@@ -33,7 +32,7 @@ public class JtObservable extends JtComposite {
    String msgid = null;
    JtMessage e = (JtMessage) event;
    Object content;
-   Object data;
+   //Object data;
    JtMessage tmp, tmp1;
 
      if (e == null)

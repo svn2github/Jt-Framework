@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Bridge pattern.
@@ -12,6 +9,8 @@ import java.io.*;
 
 public class JtBridge extends JtObject {
 
+
+  private static final long serialVersionUID = 1L;
   private Object implementor;
 
   public JtBridge () {
@@ -48,8 +47,8 @@ public class JtBridge extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -60,8 +59,13 @@ public class JtBridge extends JtObject {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
      //data = e.getMsgData ();
+     
+     // Destroy this object
+     if (msgid.equals ("JtREMOVE")) {
+       return (this);     
+     }
 
      if (implementor == null) {
        handleError ("JtBridge.process: the implementor attribute needs to be set");
@@ -95,7 +99,7 @@ public class JtBridge extends JtObject {
     JtFactory factory = new JtFactory ();
     JtBridge bridge;
 
-    JtMessage msg;
+    //JtMessage msg;
 
     // Create an instance of JtBridge
 
@@ -103,7 +107,7 @@ public class JtBridge extends JtObject {
 
     // Remove the object 
 
-    factory.removeObject ("bridge");
+    factory.removeObject (bridge);
 
 
   }

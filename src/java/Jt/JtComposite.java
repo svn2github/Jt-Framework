@@ -2,9 +2,7 @@
 
 package Jt;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Composite pattern.
@@ -12,6 +10,8 @@ import java.io.*;
 
 public class JtComposite extends JtObject {
 
+
+  private static final long serialVersionUID = 1L;
   private  Hashtable hashtable = null;
 
 
@@ -50,10 +50,13 @@ public class JtComposite extends JtObject {
     values = hashtable.values ();
     if (values == null)
       return;
+    
+    synchronized (hashtable) {
     it = values.iterator ();
 
     while (it.hasNext()) {
       sendMessage (it.next (), msg);
+    }
     }
 
   }
@@ -94,7 +97,7 @@ public class JtComposite extends JtObject {
 
      // Remove this object
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       return (this);     
      }
 
      if (msgid.equals ("JtADD_CHILD")) {
@@ -250,8 +253,8 @@ public class JtComposite extends JtObject {
   public static void main(String[] args) {
 
     JtObject main = new JtFactory ();
-    JtMessage msg, msg1;
-    Integer count;
+    //JtMessage msg, msg1;
+    //Integer count;
     JtComposite composite;
 
     // Create an instance of JtColletion

@@ -2,16 +2,16 @@
 
 package Jt;
 import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Handles a list of Jt objects.
  */
 
 public class JtList extends JtCollection {
-//private  Hashtable col = null;// Object table
+
+  private static final long serialVersionUID = 1L;
+  //private  Hashtable col = null;// Object table
   private LinkedList col = null;
  
   public JtList() {
@@ -41,7 +41,7 @@ public class JtList extends JtCollection {
 
   public Object getIterator () {
      JtIterator jit;
-     Collection values;
+     //Collection values;
 
      jit = new JtIterator ();
      
@@ -92,7 +92,7 @@ public class JtList extends JtCollection {
    String msgid = null;
    JtMessage e = (JtMessage) message;
    Object content;
-   Object data;
+   //Object data;
 
 
      if (e == null)
@@ -191,8 +191,8 @@ public class JtList extends JtCollection {
   public static void main(String[] args) {
 
     JtObject main = new JtObject ();
-    JtMessage msg, msg1;
-    Integer count;
+    JtMessage msg;
+    //Integer count;
     JtIterator it;
     Object obj;
 

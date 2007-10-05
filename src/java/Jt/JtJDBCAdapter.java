@@ -1,7 +1,6 @@
 
 
 package Jt;
-import java.io.*;
 import java.sql.*;
 import javax.sql.*;
 import java.text.*;
@@ -12,6 +11,8 @@ import Jt.jndi.*;
  */
 
 public class JtJDBCAdapter extends JtAdapter  {
+
+  private static final long serialVersionUID = 1L;
   private String user;
   private String password;
   private String url;  
@@ -443,7 +444,7 @@ public class JtJDBCAdapter extends JtAdapter  {
     */
 
   public Object processMessage (Object message) {
-  String content;
+  //String content;
   String query;
   JtMessage e = (JtMessage) message;
   Object reply;

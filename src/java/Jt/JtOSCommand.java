@@ -1,7 +1,5 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
+
 import java.io.*;
 
 
@@ -12,7 +10,9 @@ import java.io.*;
 
 public class JtOSCommand extends JtObject {
 
-  String command = null;
+
+  private static final long serialVersionUID = 1L;
+  String command;
   Process process = null;
   int status = 0;
   String stdout;
@@ -128,8 +128,8 @@ public class JtOSCommand extends JtObject {
   public Object processMessage (Object message) {
 
    String msgid = null;
-   byte buffer[];
-   File file;
+   //byte buffer[];
+   //File file;
    JtMessage e = (JtMessage) message;
 
      if (e == null)
@@ -162,7 +162,7 @@ public class JtOSCommand extends JtObject {
 
     JtObject main = new JtObject ();
     JtMessage msg;
-    File tmp;
+    //File tmp;
     Integer status;
     String output;
  

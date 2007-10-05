@@ -1,8 +1,5 @@
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 
 /**
@@ -30,8 +27,8 @@ abstract public class JtTemplateMethod extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) message;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -42,8 +39,8 @@ abstract public class JtTemplateMethod extends JtObject {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
-     data = e.getMsgData ();
+     //content = e.getMsgContent();
+     //data = e.getMsgData ();
 
      // Remove this object
      if (msgid.equals ("JtREMOVE")) {

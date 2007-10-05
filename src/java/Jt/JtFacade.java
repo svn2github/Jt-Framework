@@ -1,16 +1,15 @@
-
-
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Facade pattern.
  */
 
 public class JtFacade extends JtComposite {
+
+
+
+  private static final long serialVersionUID = 1L;
 
 
   public JtFacade () {
@@ -50,8 +49,8 @@ public class JtFacade extends JtComposite {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -62,7 +61,7 @@ public class JtFacade extends JtComposite {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
      //data = e.getMsgData ();
 
 

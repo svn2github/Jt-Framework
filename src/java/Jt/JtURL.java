@@ -1,17 +1,17 @@
 
 
 package Jt;
-import java.util.*;
 import java.net.*;
 import java.io.*;
 
 
 /**
   * Class used to handle URLs.
-  * @author Freedom Software Inc.
   */
 
 public class JtURL extends JtObject {
+
+  private static final long serialVersionUID = 1L;
   private String url;
   InputStream stream;
   BufferedInputStream bstream;
@@ -39,7 +39,7 @@ public class JtURL extends JtObject {
 
 
   String download () {
-  int available;
+  //int available;
   String line;
   BufferedReader d = null;  
   URLConnection connection;
@@ -88,8 +88,8 @@ public class JtURL extends JtObject {
   public Object processMessage (Object message) {
 
    String msgid = null;
-   byte buffer[];
-   File file;
+   //byte buffer[];
+   //File file;
    JtMessage e = (JtMessage) message;
 
      if (e == null)

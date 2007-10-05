@@ -1,7 +1,6 @@
 package Jt;
 
 import java.util.*;
-import java.io.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
@@ -11,6 +10,8 @@ import javax.activation.*;
  */ 
 
 public class JtMail extends JtObject {
+
+private static final long serialVersionUID = 1L;
 private String from;
 private String to;
 private String message;
@@ -20,7 +21,8 @@ private String cc;
 private String attachment;
 private String username;
 private String password;
-private Session ses = null;
+private transient Session ses = null;
+private String port;
 
 
    void activate () {
@@ -40,6 +42,10 @@ private Session ses = null;
           Properties props = System.getProperties(); 
           // Setup mail server 
           props.put("mail.smtp.host", server); 
+
+          // port
+          if (port != null)
+            props.put("mail.smtp.port", port); 
           if (username != null || password != null)
             props.put("mail.smtp.auth", "true");
 
@@ -99,8 +105,8 @@ private Session ses = null;
     */
 
   public Object processMessage (Object message) {
-  String content;
-  String query;
+  //String content;
+  //String query;
   JtMessage e = (JtMessage) message;
 
 
@@ -258,6 +264,24 @@ private Session ses = null;
     return (server);
   } 
 
+
+  /**
+    * Specifies the port.
+    */
+
+  public void setPort (String newPort) {
+    port = newPort;
+  }
+
+  /**
+    * Returns the port.
+    */
+
+  public String getPort () {
+    return (port);
+  } 
+
+
   /**
     * Specifies the attachment.
     */
@@ -295,17 +319,23 @@ private Session ses = null;
 
     // Set JtMail attributes
     
-    main.setValue ("jtmail", "from", "Jt@fsw.com");
+    if (main.getValue (jtmail, "from") == null)
+      main.setValue ("jtmail", "from", "Jt@yahoo.com");
 
-    main.setValue ("jtmail", "subject", "Hello World!");
-    main.setValue ("jtmail", "message", "Jt message");
+    if (main.getValue (jtmail, "subject") == null)
+      main.setValue ("jtmail", "subject", "Hello World!");
+
+    if (main.getValue (jtmail, "message") == null)
+      main.setValue ("jtmail", "message", "Jt message");
 
 
     // remove comment from the following line if
     // an attachement is required
     // main.setValue ("jtmail", "attachment", "test.txt");
 
-    main.setValue ("jtmail", "to", "Jt@fsw.com");
+
+    if (main.getValue (jtmail, "to") == null)
+      main.setValue ("jtmail", "to", "jt@yahoo.com");
 
 
     // Activate JtMail (send email)

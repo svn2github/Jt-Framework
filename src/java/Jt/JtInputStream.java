@@ -1,8 +1,5 @@
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
 import java.io.*;
 
 /**
@@ -13,8 +10,8 @@ import java.io.*;
 public class JtInputStream extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
   InputStream inputStream = null;
-  //boolean createdir = true;
   byte[] buffer;
   public final static int BUFFER_SIZE = 1024;  // Buffer size (read_file)
   public final static int MAX_LENGTH = 1024 * 50;  // Max length(read_file)
@@ -81,64 +78,64 @@ public class JtInputStream extends JtObject {
 
   private void read_stream (Object reply_to)
   {
-    InputStream istream;
-    File file;
-    int len, i;
-    JtMessage msg;
-    JtBuffer buff = new JtBuffer ();
+      InputStream istream;
+      //File file;
+      int len, i;
+      JtMessage msg;
+      JtBuffer buff = new JtBuffer ();
 
-    if (inputStream == null)
-      return;
+      if (inputStream == null)
+          return;
 
-    istream = inputStream;
+      istream = inputStream;
 
-    byte buf [] = new byte [bufferSize];
+      byte buf [] = new byte [bufferSize];
 
-    byte[] buffer1;
+      byte[] buffer1;
 
-    try {
-      //istream = new FileInputStream (name);
+      try {
+          //istream = new FileInputStream (name);
 
-      handleTrace ("read_stream:available:" +
-        istream.available ());
+          handleTrace ("read_stream:available:" +
+                  istream.available ());
 
-      while ((len = istream.read (buf, 0, bufferSize)) > 0) 
-      {
- 
-        handleTrace ("read_stream:" + len);
-        buffer1 = new byte [len];
+          while ((len = istream.read (buf, 0, bufferSize)) > 0) 
+          {
 
-        i = 0;
-	while (i < len) {
-          buffer1[i] = buf[i];
-	  i++;
-	}
+              handleTrace ("read_stream:" + len);
+              buffer1 = new byte [len];
 
-	buff.setBuffer (buffer1);
-       
-        msg = new JtMessage ();
-        msg.setMsgId ("JtDATA_BUFFER");
-        msg.setMsgContent (buff);
-        
-        // send messages to the reply_to object
+              i = 0;
+              while (i < len) {
+                  buffer1[i] = buf[i];
+                  i++;
+              }
 
-        if (reply_to != null)
-          this.sendMessage (reply_to, msg);
+              buff.setBuffer (buffer1);
+
+              msg = new JtMessage ();
+              msg.setMsgId ("JtDATA_BUFFER");
+              msg.setMsgContent (buff);
+
+              // send messages to the reply_to object
+
+              if (reply_to != null)
+                  this.sendMessage (reply_to, msg);
+          }
+
+          // istream.close (); check
+
+      } catch (Exception e) {
+          handleException (e);
       }
 
-      // istream.close (); check
 
-    } catch (Exception e) {
-      handleException (e);
-    }
-
-
-/*
+      /*
     handleTrace ("read_file:");
     for (i = 0; i < offset; i++)
       System.out.print (new Character ((char) buffer[i]));
-*/
-    return;
+       */
+      return;
   }
 
   // write operation
@@ -196,35 +193,35 @@ public class JtInputStream extends JtObject {
 
   public Object processMessage (Object message) {
 
-   String msgid = null;
-   byte buffer[];
-   //JtBuffer buf;
-   File file;
-   JtMessage e = (JtMessage) message;
-   Object reply_to;
+      String msgid = null;
+      //byte buffer[];
+      //JtBuffer buf;
+      //File file;
+      JtMessage e = (JtMessage) message;
+      Object reply_to;
 
-     if (e == null)
-	return null;
+      if (e == null)
+          return null;
 
-     msgid = (String) e.getMsgId ();
+      msgid = (String) e.getMsgId ();
 
-     if (msgid == null)
-	return null;
+      if (msgid == null)
+          return null;
 
 
-     if (msgid.equals ("JtREAD")) {
-        reply_to = (Object) e.getMsgReplyTo ();
-	read_stream (reply_to);
-        return (null);
-     }
+      if (msgid.equals ("JtREAD")) {
+          reply_to = (Object) e.getMsgReplyTo ();
+          read_stream (reply_to);
+          return (null);
+      }
 
-     if (msgid.equals ("JtCLOSE") || msgid.equals ("JtREMOVE")) {
-	closeStream ();
-        return (null);
-     }
+      if (msgid.equals ("JtCLOSE") || msgid.equals ("JtREMOVE")) {
+          closeStream ();
+          return (null);
+      }
 
-     handleError ("JtInputStream.processMessage: invalid message id:" + msgid);
-     return (null);
+      handleError ("JtInputStream.processMessage: invalid message id:" + msgid);
+      return (null);
 
   }
 
@@ -237,8 +234,8 @@ public class JtInputStream extends JtObject {
 
     JtObject main = new JtObject ();
     JtMessage msg;
-    File tmp;
-    JtFile jfile;
+    //File tmp;
+    //JtFile jfile;
     FileInputStream istream = null;
     JtObject f;
 

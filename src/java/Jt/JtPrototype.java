@@ -1,10 +1,6 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
 
 /**
  * Jt Implementation of the Prototype pattern.
@@ -13,6 +9,7 @@ import java.io.*;
 public class JtPrototype extends JtObject {
 
 
+  private static final long serialVersionUID = 1L;
 
 
   public JtPrototype () {
@@ -23,22 +20,22 @@ public class JtPrototype extends JtObject {
   private Object cloneObject () {
 
 
-   JtMessage msg = new JtMessage ("JtENCODE_OBJECT");
-   JtObject tmp = new JtObject();
-    Object aux;
+      JtMessage msg = new JtMessage ("JtENCODE_OBJECT");
+      JtObject tmp = new JtObject();
+      Object aux;
 
-    msg.setMsgContent (this);
-    aux = tmp.processMessage  (msg);
-    
-    if (aux == null) {
-      handleError ("cloneObject: Unable to encode the object (XML format"); 
-      return (null);
-    }
+      msg.setMsgContent (this);
+      aux = tmp.processMessage  (msg);
 
-    msg = new JtMessage ("JtDECODE_OBJECT");
-    
-    msg.setMsgContent (aux);
-    return (tmp.processMessage (msg));    
+      if (aux == null) {
+          handleError ("cloneObject: Unable to encode the object (XML format"); 
+          return (null);
+      }
+
+      msg = new JtMessage ("JtDECODE_OBJECT");
+
+      msg.setMsgContent (aux);
+      return (tmp.processMessage (msg));    
   }
 
   private Object test () {
@@ -65,8 +62,8 @@ public class JtPrototype extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -77,7 +74,7 @@ public class JtPrototype extends JtObject {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
      //data = e.getMsgData ();
 
      //return (super.processMessage (event));
@@ -98,7 +95,7 @@ public class JtPrototype extends JtObject {
 
 
      if (msgid.equals ("JtREMOVE")) {
-       return (null);     
+       return (this);     
      }
 
 

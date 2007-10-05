@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Flyweight pattern.
@@ -12,6 +9,8 @@ import java.io.*;
 
 public class JtFlyweight extends JtComposite {
 
+
+  private static final long serialVersionUID = 1L;
   private Object factory = null;
 
 
@@ -54,68 +53,68 @@ public class JtFlyweight extends JtComposite {
 
   public Object processMessage (Object message) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) message;
-   Object content;
-   Object data;
-   JtMessage tmp;
-   JtInterface aux, aux1;
-   
+      String msgid = null;
+      JtMessage e = (JtMessage) message;
+      //Object content;
+      //Object data;
+      JtMessage tmp;
+      JtInterface aux, aux1;
 
 
-     if (e == null)
-	return null;
 
-     msgid = (String) e.getMsgId ();
+      if (e == null)
+          return null;
 
-     if (msgid == null)
-	return null;
+      msgid = (String) e.getMsgId ();
 
-     content = e.getMsgContent();
-     data = e.getMsgData ();
+      if (msgid == null)
+          return null;
 
-     // Remove this object
-     if (msgid.equals ("JtREMOVE")) {
-       return (this);     
-     }
+      //content = e.getMsgContent();
+      //data = e.getMsgData ();
 
-
-     if (msgid.equals ("JtGET_FLYWEIGHT")) {
-       tmp = new JtMessage ("JtGET_CHILD");
-       tmp.setMsgData (e.getMsgData ());
-       aux = (JtInterface) super.processMessage (tmp);
-
-       if (aux != null)
-         return (aux); 
-
-             
-       if (factory == null) { 
-         handleError ("processMessage: factory attribute needs to be set");
-         return (null);
-       }
-
-       //handleTrace ("Jt.Flyweight: processMessage creating a new flyweight");
-
-       tmp = new JtMessage ("JtCREATE_FLYWEIGHT");
-       tmp.setMsgData (e.getMsgData ());
-
-       aux1 = (JtInterface) sendMessage (factory, tmp);
-
-       tmp = new JtMessage ("JtADD_CHILD");
-       tmp.setMsgContent (aux1);
-       tmp.setMsgData (e.getMsgData ());
-       super.processMessage (tmp);
-       return (aux1);
+      // Remove this object
+      if (msgid.equals ("JtREMOVE")) {
+          return (this);     
+      }
 
 
-     }
+      if (msgid.equals ("JtGET_FLYWEIGHT")) {
+          tmp = new JtMessage ("JtGET_CHILD");
+          tmp.setMsgData (e.getMsgData ());
+          aux = (JtInterface) super.processMessage (tmp);
 
-      
-     return (super.processMessage (message));
-     
-      
-     //handleError ("JtMediator.processMessage: invalid message id:" + msgid);
-     //return (null);
+          if (aux != null)
+              return (aux); 
+
+
+          if (factory == null) { 
+              handleError ("processMessage: factory attribute needs to be set");
+              return (null);
+          }
+
+          //handleTrace ("Jt.Flyweight: processMessage creating a new flyweight");
+
+          tmp = new JtMessage ("JtCREATE_FLYWEIGHT");
+          tmp.setMsgData (e.getMsgData ());
+
+          aux1 = (JtInterface) sendMessage (factory, tmp);
+
+          tmp = new JtMessage ("JtADD_CHILD");
+          tmp.setMsgContent (aux1);
+          tmp.setMsgData (e.getMsgData ());
+          super.processMessage (tmp);
+          return (aux1);
+
+
+      }
+
+
+      return (super.processMessage (message));
+
+
+      //handleError ("JtMediator.processMessage: invalid message id:" + msgid);
+      //return (null);
 
   }
 
@@ -136,8 +135,7 @@ public class JtFlyweight extends JtComposite {
 
     //main.sendMessage (composite, new JtMessage ("JtTEST"));
 
-
-    main.removeObject ("flyweight");
+    main.removeObject (flyweightp);
 
 
   }

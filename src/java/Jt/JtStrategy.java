@@ -1,10 +1,7 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt implementation of the Strategy pattern.
@@ -13,6 +10,8 @@ import java.io.*;
 public class JtStrategy extends JtObject {
 
 
+ 
+  private static final long serialVersionUID = 1L;
   private Object concreteStrategy = null; // Concrete Strategy object
 
 
@@ -45,45 +44,45 @@ public class JtStrategy extends JtObject {
 
 
   /**
-    * Process object messages.
-    * <ul>
-    * <li>JtREMOVE - Performs any housekeeping that may be needed before the object
-    * is removed.
-    * </ul>
-    */
+   * Process object messages.
+   * <ul>
+   * <li>JtREMOVE - Performs any housekeeping that may be needed before the object
+   * is removed.
+   * </ul>
+   */
 
   public Object processMessage (Object event) {
 
-   String msgid = null;
-   JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+      String msgid = null;
+      JtMessage e = (JtMessage) event;
+      //Object content;
+      //Object data;
 
 
-     if (e == null)
-	return null;
+      if (e == null)
+          return null;
 
-     msgid = (String) e.getMsgId ();
+      msgid = (String) e.getMsgId ();
 
-     if (msgid == null)
-	return null;
+      if (msgid == null)
+          return null;
 
-     content = e.getMsgContent();
-     //data = e.getMsgData ();
+      //content = e.getMsgContent();
+      //data = e.getMsgData ();
 
 
-     if (msgid.equals ("JtREMOVE")) {
-       return (null);     
-     }
+      if (msgid.equals ("JtREMOVE")) {
+          return (this);     
+      }
 
-     // Let the concrete strategy object handle the message
+      // Let the concrete strategy object handle the message
 
-     if (concreteStrategy == null) {
-       handleError ("processMessage: concreteStrategy attribute must be set");
-       return (null);
-     }
+      if (concreteStrategy == null) {
+          handleError ("processMessage: concreteStrategy attribute must be set");
+          return (null);
+      }
 
-     return (((JtObject) concreteStrategy).processMessage (event));
+      return (((JtObject) concreteStrategy).processMessage (event));
 
 
   }

@@ -1,7 +1,6 @@
 
 
 package Jt;
-import java.io.*;
 
 /**
   * Implements a data buffer. The buffer representation is an array of bytes.
@@ -9,6 +8,7 @@ import java.io.*;
 
 public class JtBuffer extends JtObject  {
   
+  private static final long serialVersionUID = 1L;
   byte buffer[];
 
   public JtBuffer() {

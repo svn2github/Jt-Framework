@@ -2,8 +2,6 @@
 
 package Jt;
 
-import java.io.*;
-
 
 /**
  *  Represents entries in the Jt Resource file (.Jtrc).

@@ -9,19 +9,12 @@ package Jt;
 
 public class JtException extends Exception {
 
+
+   private static final long serialVersionUID = 1L;
 // private String trace;
 
    public JtException () {}
 
-/*
-   public void setTrace (String trace) {
-     this.trace = trace;
-   }
-
-   public String getTrace () {
-     return (trace);
-   }
-*/
 
    public JtException (String s) {
 	super (s);

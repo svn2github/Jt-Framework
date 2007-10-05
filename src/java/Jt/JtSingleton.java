@@ -1,16 +1,15 @@
 
 
 package Jt;
-import java.util.*;
-import java.lang.reflect.*;
-import java.beans.*;
-import java.io.*;
+
 
 /**
  * Jt Implementation of the Singleton pattern.
  */
 
 public class JtSingleton extends JtObject {
+
+  private static final long serialVersionUID = 1L;
   private static Object instance;
 
 
@@ -27,7 +26,6 @@ public class JtSingleton extends JtObject {
 
     return instance;
   }
-
 
 
 /**
@@ -54,8 +52,8 @@ public class JtSingleton extends JtObject {
 
    String msgid = null;
    JtMessage e = (JtMessage) event;
-   Object content;
-   Object data;
+   //Object content;
+   //Object data;
 
 
      if (e == null)
@@ -66,12 +64,12 @@ public class JtSingleton extends JtObject {
      if (msgid == null)
 	return null;
 
-     content = e.getMsgContent();
+     //content = e.getMsgContent();
      //data = e.getMsgData ();
 
 
      if (msgid.equals ("JtREMOVE")) {
-       return (super.processMessage (null));     
+       return (super.processMessage (event));     
      }
 
 
@@ -88,8 +86,8 @@ public class JtSingleton extends JtObject {
   public static void main(String[] args) {
 
     JtFactory main = new JtFactory ();
-    JtMessage msg, msg1;
-    Integer count;
+    //JtMessage msg, msg1;
+    //Integer count;
     JtSingleton singleton, singleton1;
 
     System.out.println ("Creating an instance of a singleton ...");
@@ -103,7 +101,7 @@ public class JtSingleton extends JtObject {
 
     singleton1 = (JtSingleton) main.createObject ("Jt.JtSingleton", "singleton1");
 
-    main.removeObject ("singleton");
+    main.removeObject (singleton);
 
 
   }
