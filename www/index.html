@@ -25,16 +25,16 @@ w\:* {behavior:url(#default#VML);}
   <o:Author>Marina Sammy</o:Author>
   <o:Template>Normal</o:Template>
   <o:LastAuthor>Freedom</o:LastAuthor>
-  <o:Revision>98</o:Revision>
-  <o:TotalTime>392</o:TotalTime>
-  <o:Created>2006-08-20T23:20:00Z</o:Created>
-  <o:LastSaved>2007-10-05T15:47:00Z</o:LastSaved>
+  <o:Revision>5</o:Revision>
+  <o:TotalTime>409</o:TotalTime>
+  <o:Created>2007-11-01T18:08:00Z</o:Created>
+  <o:LastSaved>2007-11-01T18:24:00Z</o:LastSaved>
   <o:Pages>3</o:Pages>
-  <o:Words>1084</o:Words>
-  <o:Characters>6179</o:Characters>
-  <o:Lines>51</o:Lines>
+  <o:Words>1125</o:Words>
+  <o:Characters>6415</o:Characters>
+  <o:Lines>53</o:Lines>
   <o:Paragraphs>12</o:Paragraphs>
-  <o:CharactersWithSpaces>7588</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>7878</o:CharactersWithSpaces>
   <o:Version>9.3821</o:Version>
  </o:DocumentProperties>
 </xml><![endif]-->
@@ -131,7 +131,7 @@ ul
 -->
 </style>
 <!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext="edit" spidmax="1026"/>
+ <o:shapedefaults v:ext="edit" spidmax="1027"/>
 </xml><![endif]--><!--[if gte mso 9]><xml>
  <o:shapelayout v:ext="edit">
   <o:idmap v:ext="edit" data="1"/>
@@ -312,7 +312,7 @@ auto;margin-left:1.0in;text-indent:-.25in;mso-list:l4 level1 lfo2;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><![endif]><b><!-- Latest Release: e.g. 1.0 -->Latest Release:</b>
-Jt1.7<o:p></o:p></p>
+Jt1.8<o:p></o:p></p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l4 level1 lfo2;tab-stops:
@@ -331,12 +331,12 @@ Type:</b> framework (open source technology)<o:p></o:p></p>
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:.5in'><!-- project info end -->Jt is a lightweight pattern
 oriented framework for the rapid implementation of J2EE applications. Jt has
-been utilized in several large mission critical systems. Jt implements many
-well-known patterns including Data Access Objects (DAO), GoF design patterns
-and J2EE patterns. It features messages, attributes, logging/debugging
-capabilities, resource loading, etc. This framework supports several BPM and
-J2EE technologies including jBPM, Struts, Java Server Pages (JSPs), AJAX, JDBC,
-Enterprise Java Beans (EJB), JMS, JavaMail, XML and Web Services.</p>
+been utilized in several large mission critical systems. Jt is based on a messaging
+design pattern. Jt also implements many well-known patterns including Data
+Access Objects (DAO), GoF design patterns and J2EE patterns. This framework
+supports several BPM and J2EE technologies including jBPM, Struts, Java Server
+Pages (JSPs), AJAX, JDBC, Hibernate, Enterprise Java Beans (EJB), JMS,
+JavaMail, XML and Web Services.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:.5in'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
@@ -407,11 +407,9 @@ auto'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
 <h3><a name=features>Main Features</a></h3>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
-auto;margin-left:.5in'>Jt1.7 features integration with the MVC (Model View
-Controller) design pattern and Ajax. Universal Jt components and adapters
-provide a transparent interface between the Jt framework API and these
-technologies. The business logic (controller piece) can be implemented using Jt
-framework components and/or BPM business processes.</p>
+auto;margin-left:.5in'>Jt1.8 features integration with the Hibernate
+implementation of Data Access Objects (DAO). A Jt adapter provides a
+transparent interface between the Jt framework and Hibernate DAOs.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:.5in'>Additional features include: </p>
@@ -433,8 +431,8 @@ objects are able to interchange information and perform computations by
 sending,<span style="mso-spacerun: yes">&nbsp; </span>receiving and processing
 messages. The messaging paradigm provides additional encapsulation and software
 simplicity. The messaging API implemented by the Jt Framework is very simple:
-very few calls are required to create, manipulate and destroy messages and objects.
-On the other hand, this API is very powerful. </p>
+very few calls are required to create, manipulate and destroy messages and
+objects. On the other hand, this API is very powerful. </p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
@@ -447,12 +445,30 @@ delegate, J2EE Session Facade, J2EE Service Locator and J2EE Value Object.</p>
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Web Services support via the implementation of a Web
+Services adapter. The Jt messaging API greatly simplifies the development of
+web services.</p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
+list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><![endif]>Support for business process modeling (BPM). A jBPM
 adapter is provided within the Jt framework. jBPM is an open source
 implementation of<span style="mso-spacerun: yes">&nbsp; </span>the BPM
 technology. A Jt application can now be modeled using a process graph. This
 provides users with a very powerful way of modeling business processes.<span
 style="mso-spacerun: yes">&nbsp; </span></p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
+list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Integration with the MVC (Model View Controller) design
+pattern and Ajax. Universal Jt components and adapters provide a transparent
+interface between the Jt framework API and these technologies. The business
+logic (controller piece) can be implemented using Jt framework components
+and/or BPM business processes.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
@@ -485,19 +501,11 @@ JavaMail adapter</p>
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
 list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><![endif]>Support for J2EE Enterprise Java Beans (EJB) via Jt
-Adapters. EJB clients are able to gain transparent access to remote framework
-objects. No need to deal with the complexities of EJB application development.
-An implementation of the J2EE Service Locator pattern is also provided.<span
+</span></span><![endif]>Support for J2EE Enterprise Java Beans (EJB) via Jt Adapters.
+EJB clients are able to gain transparent access to remote framework objects. No
+need to deal with the complexities of EJB application development. An
+implementation of the J2EE Service Locator pattern is also provided.<span
 style="mso-spacerun: yes">&nbsp; </span></p>
-
-<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
-auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
-list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
-12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><![endif]>Web Services support via the implementation of a Web
-Services adapter. The Jt messaging API greatly simplifies the development of
-web services. </p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l1 level1 lfo6;tab-stops:
@@ -712,7 +720,7 @@ auto;margin-left:1.5in;text-indent:-.25in;mso-list:l3 level2 lfo10;tab-stops:
 list 1.0in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>o<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><![endif]>JMS.</p>
+</span></span><![endif]>JMS integration.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l3 level1 lfo10;tab-stops:
@@ -725,7 +733,7 @@ auto;margin-left:1.5in;text-indent:-.25in;mso-list:l3 level2 lfo10;tab-stops:
 list 1.0in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
 12.0pt;font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>o<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><![endif]>BPM.</p>
+</span></span><![endif]>BPM integration.</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:1.0in;text-indent:-.25in;mso-list:l3 level1 lfo10;tab-stops:
@@ -734,11 +742,24 @@ list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size
 </span></span><![endif]>Jt 1.7 - [09/01/07] </p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.5in;text-indent:-.25in;mso-list:l3 level2 lfo10;tab-stops:
+list 1.0in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt;font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>MVC/Struts and Ajax integration.</p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.0in;text-indent:-.25in;mso-list:l3 level1 lfo10;tab-stops:
+list .5in'><![if !supportLists]><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt;font-family:Symbol'>&middot;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Jt 1.8 - [10/01/07] </p>
+
+<p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto;margin-left:117.0pt;text-indent:-27.0pt;mso-list:l3 level2 lfo10;
 tab-stops:list 1.0in'><![if !supportLists]><span style='font-size:10.0pt;
 mso-bidi-font-size:12.0pt;font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>o<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><![endif]>MVC/Struts and Ajax integration.</p>
+</span></span><![endif]>Hibernate DAO integration</p>
 
 <p class=MsoNormal style='margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
 auto'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
